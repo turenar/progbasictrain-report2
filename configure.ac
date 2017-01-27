@@ -54,6 +54,7 @@ AX_CHECK_LINK_FLAG([-rdynamic], [AX_APPEND_FLAG([-rdynamic], [LDFLAGS])], [])
 # Checks for libraries.
 dnl PKG_PROG_PKG_CONFIG
 AC_SEARCH_LIBS([__gmpz_init], [gmp], [], [AC_MSG_ERROR([GNU MP not found.])])
+AC_SEARCH_LIBS([mpfr_add], [mpfr], [], [AC_MSG_ERROR([mpfr not found.])])
 
 # Checks for header files.
 
