@@ -8,6 +8,7 @@
 
 struct mat_parser {
 	mat_tokenizer_t* tokenizer;
+	mat_world_t* world;
 };
 typedef struct mat_parser mat_parser_t;
 
@@ -16,8 +17,9 @@ static mat_expr_t* parse_func(mat_parser_t*);
 static mat_expr_t* parse_var(mat_parser_t*);
 static mat_expr_t* parse_literal(mat_parser_t*);
 
-mat_parser_t* mat_parser_new(const char* expr) {
+mat_parser_t* mat_parser_new(mat_world_t* w, const char* expr) {
 	mat_parser_t* ret = (mat_parser_t*) malloc(sizeof(mat_parser_t));
+	ret->world = w;
 	ret->tokenizer = mat_tokenizer_new(expr);
 	return ret;
 }

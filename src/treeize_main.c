@@ -4,6 +4,7 @@
 #include "parser.h"
 #include "expr.h"
 #include "error.h"
+#include "world.h"
 
 static void traverse(mat_expr_t*);
 
@@ -11,7 +12,8 @@ int main() {
 	const char* expr = "Plus [ Times [ Sin [ 13.4 ] , 3 ] , 2 ]";
 	printf("expression:\t%s\n", expr);
 
-	mat_parser_t* parser = mat_parser_new(expr);
+	mat_world_t* world = mat_world_new();
+	mat_parser_t* parser = mat_parser_new(world, expr);
 	mat_expr_t* e = mat_parser_parse(parser);
 	if (!e) {
 		printf("error: %s\n", mat_err_get());
