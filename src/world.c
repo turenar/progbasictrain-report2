@@ -3,6 +3,8 @@
 #include "world.h"
 #include "op_hash.h"
 #include <stdlib.h>
+#include "fns/fns.h"
+#include "op.h"
 
 struct mat_world {
 	mat_op_hash_t* hash;
@@ -18,6 +20,10 @@ mat_world_t* mat_world_new() {
 void mat_world_free(mat_world_t* w) {
 	mat_op_hash_free(w->hash);
 	free(w);
+}
+
+void mat_world_put_stdfunc(mat_world_t* w) {
+	mat_world_put_op(w, mat_fn_plus.name, &mat_fn_plus);
 }
 
 void mat_world_put_op(mat_world_t* w, const char* name, mat_op_def_t* def) {

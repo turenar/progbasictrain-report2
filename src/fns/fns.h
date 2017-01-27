@@ -5,4 +5,4 @@
 extern mat_op_def_t mat_fn_const;
 extern mat_op_def_t mat_fn_variable;
 
-extern mat_op_def_t mat_fn_add;
+extern mat_op_def_t mat_fn_plus;

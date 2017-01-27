@@ -13,6 +13,8 @@ int main() {
 
 	int exitcode;
 	mat_world_t* world = mat_world_new();
+	mat_world_put_stdfunc(world);
+
 	mat_parser_t* parser = mat_parser_new(world, expr);
 	mat_expr_t* e = mat_parser_parse(parser);
 	if (!e) {
