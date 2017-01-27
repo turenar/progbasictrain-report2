@@ -1,5 +1,7 @@
 #pragma once
 
+#include <stddef.h>
+
 typedef enum mat_tokenizer_token_type {
 	MAT_TOKEN_INITIAL,
 	MAT_TOKEN_UNKNOWN,
@@ -20,5 +22,8 @@ void mat_tokenizer_free(mat_tokenizer_t*);
 
 mat_tokenizer_token_type_t mat_tokenizer_next(mat_tokenizer_t*);
 const char* mat_tokenizer_get_token(mat_tokenizer_t*);
+
+size_t mat_tokenizer_get_row(mat_tokenizer_t*);
+size_t mat_tokenizer_get_col(mat_tokenizer_t*);
 
 const char* mat_tokenizer_get_token_type_name(mat_tokenizer_token_type_t);

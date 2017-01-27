@@ -113,6 +113,15 @@ const char* mat_tokenizer_get_token(mat_tokenizer_t* tokenizer) {
 	return tokenizer->buf;
 }
 
+size_t mat_tokenizer_get_row(mat_tokenizer_t* tokenizer) {
+	return tokenizer->row;
+}
+
+size_t mat_tokenizer_get_col(mat_tokenizer_t* tokenizer) {
+	return (size_t) (tokenizer->token_start - tokenizer->row_start + 1u);
+}
+
+
 static bool is_alphabet(char c) {
 	return ('a' <= c && c <= 'z') || ('A' <= c && c <= 'Z');
 }
