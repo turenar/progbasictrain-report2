@@ -9,6 +9,7 @@ treeize_SOURCES = error.c \
 				  fns/fn_times.c \
 				  fns/fn_plus.c \
 				  fns/fn_sin.c \
+				  fns/fn_subtract.c \
 				  tokenizer.c \
 				  op_hash.c \
 				  parser.c \
