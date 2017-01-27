@@ -5,6 +5,7 @@
 #include <stdlib.h>
 #include "tokenizer.h"
 #include "error.h"
+#include "fns/fns.h"
 
 struct mat_parser {
 	mat_tokenizer_t* tokenizer;
@@ -90,7 +91,7 @@ static mat_expr_t* parse_func(mat_parser_t* parser) {
 	}
 
 	free(func_name); // TODO
-	return mat_expr_new_args(1, arg_count, args);
+	return mat_expr_new_args(1, &mat_fn_add, arg_count, args);
 
 free_args:
 	for (unsigned int i = 0; i < arg_count; ++i) {

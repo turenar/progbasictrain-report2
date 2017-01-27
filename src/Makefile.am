@@ -3,6 +3,10 @@ bin_PROGRAMS = treeize
 
 treeize_SOURCES = error.c \
 				  expr.c \
+				  fns/fn_common.c \
+				  fns/fn_const.c \
+				  fns/fn_variable.c \
+				  fns/fn_add.c \
 				  tokenizer.c \
 				  op_hash.c \
 				  parser.c \
