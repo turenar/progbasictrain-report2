@@ -52,7 +52,8 @@ AX_CHECK_COMPILE_FLAG([-pedantic], [AX_APPEND_FLAG([-pedantic], [warn_flags])], 
 AX_CHECK_LINK_FLAG([-rdynamic], [AX_APPEND_FLAG([-rdynamic], [LDFLAGS])], [])
 
 # Checks for libraries.
-PKG_PROG_PKG_CONFIG
+dnl PKG_PROG_PKG_CONFIG
+AC_SEARCH_LIBS([__gmpz_init], [gmp], [], [AC_MSG_ERROR([GNU MP not found.])])
 
 # Checks for header files.
 
