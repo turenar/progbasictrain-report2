@@ -25,8 +25,9 @@ void mat_world_free(mat_world_t* w) {
 void mat_world_put_stdfunc(mat_world_t* w) {
 #define PUT_OP(var) mat_world_put_op(w, var.name, &var);
 	PUT_OP(mat_fn_plus);
-	PUT_OP(mat_fn_times);
 	PUT_OP(mat_fn_subtract);
+	PUT_OP(mat_fn_times);
+	PUT_OP(mat_fn_divide);
 	PUT_OP(mat_fn_sin);
 #undef PUT_OP
 }
