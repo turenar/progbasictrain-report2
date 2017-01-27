@@ -96,6 +96,17 @@ static mat_expr_t* parse_func(mat_parser_t* parser) {
 		}
 	}
 
+	if (arg_count < op_def->min_args || op_def->max_args < arg_count) {
+		if (op_def->min_args == op_def->max_args) {
+			mat_err_set_format(MAT_ARG_COUNT_MISMATCH, "%s takes %u arguments, but %u were given",
+			                   op_def->name, op_def->min_args, arg_count);
+		} else {
+			mat_err_set_format(MAT_ARG_COUNT_MISMATCH, "%s takes %u-%u arguments, but %u were given",
+			                   op_def->name, op_def->min_args, op_def->max_args, arg_count);
+		}
+		goto free_args;
+	}
+
 	return mat_expr_new_args(1, op_def, arg_count, args);
 
 free_args:

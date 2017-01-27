@@ -10,6 +10,7 @@ static mat_error_t calc_value(const mat_expr_t* expr, mpq_t out);
 
 mat_op_def_t mat_fn_variable = {
 		"__variable",
+		0, 0,
 		&show_expression,
 		&calc_value
 };
