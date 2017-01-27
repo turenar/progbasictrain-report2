@@ -36,3 +36,28 @@ mat_error_t mat_fn_common_apply_bifunction(const mat_expr_t* expr, mpq_t out, mp
 
 	return MAT_SUCCESS;
 }
+
+mat_error_t mat_fn_common_apply_mpfr_function(const mat_expr_t* expr, mpq_t out, mpfr_func fn) {
+	mat_expr_t** args = expr->value.expr.args;
+	mpq_t arg = {0};
+	mpq_init(arg);
+	args[0]->op_def->calc_value(args[0], arg);
+
+	mpfr_t in_fr = {0};
+	mpfr_t out_fr = {0};
+	mpfr_init(in_fr);
+	mpfr_init(out_fr);
+	mpfr_set_q(in_fr, arg, MPFR_RNDN);
+	fn(out_fr, in_fr, MPFR_RNDN);
+
+	mpf_t result_f = {0};
+	mpf_init(result_f);
+	mpfr_get_f(result_f, out_fr, MPFR_RNDN);
+	mpq_set_f(out, result_f);
+
+	mpq_clear(arg);
+	mpfr_clear(in_fr);
+	mpfr_clear(out_fr);
+	mpf_clear(result_f);
+	return MAT_SUCCESS;
+}
