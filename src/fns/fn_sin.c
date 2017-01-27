@@ -1,8 +1,8 @@
 #include "config.inc.h"
 
-#include "fns.h"
 #include <mpfr.h>
 #include "fn_common.h"
+#include "fns.h"
 
 static void show_expression(const mat_expr_t*);
 static mat_error_t calc_value(const mat_expr_t* expr, mpq_t out);

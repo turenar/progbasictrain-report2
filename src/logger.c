@@ -1,8 +1,8 @@
 #include "config.inc.h"
 
 #include "logger.h"
-#include <stdio.h>
 #include <stdarg.h>
+#include <stdio.h>
 
 static void log_log(const char* file, int line, const char* color, const char* fmt, va_list args) {
 	const char* filename = file;

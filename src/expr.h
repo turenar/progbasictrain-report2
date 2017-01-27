@@ -1,7 +1,7 @@
 #pragma once
 
-#include "fwddecl.h"
 #include <gmp.h>
+#include "fwddecl.h"
 
 typedef int mat_op_id_t;
 

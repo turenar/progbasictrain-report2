@@ -1,8 +1,8 @@
 #pragma once
 
-#include "fwddecl.h"
 #include <gmp.h>
 #include "error.h"
+#include "fwddecl.h"
 
 struct mat_op_def {
 	const char* name;

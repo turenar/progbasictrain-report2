@@ -1,7 +1,7 @@
 #include "config.inc.h"
 
-#include "fns.h"
 #include <stdio.h>
+#include "fns.h"
 #include "../expr.h"
 #include "../op.h"
 

@@ -1,9 +1,9 @@
 #include "config.inc.h"
 
 #include "error.h"
+#include <stdarg.h>
 #include <stdio.h>
 #include <stdlib.h>
-#include <stdarg.h>
 
 
 static mat_error_t error_id = MAT_SUCCESS;

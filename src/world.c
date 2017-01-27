@@ -1,10 +1,10 @@
 #include "config.inc.h"
 
 #include "world.h"
-#include "op_hash.h"
 #include <stdlib.h>
-#include "fns/fns.h"
 #include "op.h"
+#include "op_hash.h"
+#include "fns/fns.h"
 
 struct mat_world {
 	mat_op_hash_t* hash;

@@ -1,11 +1,11 @@
-#include <stdio.h>
-#include <stdbool.h>
 #include <gmp.h>
-#include "parser.h"
-#include "expr.h"
+#include <stdbool.h>
+#include <stdio.h>
 #include "error.h"
-#include "world.h"
+#include "expr.h"
 #include "op.h"
+#include "parser.h"
+#include "world.h"
 
 int main() {
 	const char* expr = "Plus [ Times [ Sin [ 13.4 ] , 3 ] , 2 ]";

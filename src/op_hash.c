@@ -1,8 +1,8 @@
 #include "config.inc.h"
 
 #include "op_hash.h"
-#include <stdlib.h>
 #include <assert.h>
+#include <stdlib.h>
 #include <string.h>
 
 typedef struct mat_op_hash_node {

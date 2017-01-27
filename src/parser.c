@@ -1,12 +1,12 @@
 #include "config.inc.h"
 
 #include "parser.h"
-#include "expr.h"
 #include <stdlib.h>
-#include "tokenizer.h"
 #include "error.h"
-#include "fns/fns.h"
+#include "expr.h"
+#include "tokenizer.h"
 #include "world.h"
+#include "fns/fns.h"
 
 struct mat_parser {
 	mat_tokenizer_t* tokenizer;

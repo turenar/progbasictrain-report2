@@ -1,9 +1,9 @@
 #pragma once
 
-#include "../fwddecl.h"
-#include "../error.h"
 #include <gmp.h>
 #include <mpfr.h>
+#include "../error.h"
+#include "../fwddecl.h"
 
 void mat_fn_common_show_expression(const mat_expr_t* expr);
 

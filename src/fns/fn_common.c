@@ -1,8 +1,8 @@
 #include "config.inc.h"
 
 #include "fn_common.h"
-#include "assert.h"
 #include <stdio.h>
+#include "assert.h"
 #include "../expr.h"
 #include "../op.h"
 
