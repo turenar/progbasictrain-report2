@@ -1,6 +1,5 @@
 #include "config.inc.h"
 
-#include <mpfr.h>
 #include "fn_common.h"
 #include "fns.h"
 
