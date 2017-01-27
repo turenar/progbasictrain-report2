@@ -8,7 +8,7 @@
 #include "world.h"
 
 int main() {
-	const char* expr = "Log[Exp[2]]";
+	const char* expr = "Log[UnknownUUUDFAsdjfkjsdflkajsdlfkjasdlfkjasdjhsdkfjhaskdfjhaskdjfhaskdjfhaskdfjhasfhaksdjfhaksdjfhaksdjfhaks[2]]";
 	printf("expression:\t%s\n", expr);
 
 	int exitcode;
@@ -18,7 +18,7 @@ int main() {
 	mat_parser_t* parser = mat_parser_new(world, expr);
 	mat_expr_t* e = mat_parser_parse(parser);
 	if (!e) {
-		printf("error: %s\n", mat_err_get());
+		mat_parser_describe_error_position(parser);
 		exitcode = 1;
 		goto free_parser;
 	}

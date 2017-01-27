@@ -7,6 +7,8 @@
 #include "tokenizer.h"
 #include "world.h"
 #include "fns/fns.h"
+#include <stdio.h>
+#include <string.h>
 
 struct mat_parser {
 	mat_tokenizer_t* tokenizer;
@@ -14,10 +16,15 @@ struct mat_parser {
 };
 typedef struct mat_parser mat_parser_t;
 
+static const size_t SHOW_ROW_LEN = 60u;
+
+
 static mat_expr_t* parse_expr(mat_parser_t*, mat_tokenizer_token_type_t);
 static mat_expr_t* parse_func(mat_parser_t*);
 static mat_expr_t* parse_var(mat_parser_t*);
 static mat_expr_t* parse_literal(mat_parser_t*);
+
+static size_t get_row_len(const char*);
 
 mat_parser_t* mat_parser_new(mat_world_t* w, const char* expr) {
 	mat_parser_t* ret = (mat_parser_t*) malloc(sizeof(mat_parser_t));
@@ -33,6 +40,28 @@ mat_expr_t* mat_parser_parse(mat_parser_t* parser) {
 void mat_parser_free(mat_parser_t* parser) {
 	mat_tokenizer_free(parser->tokenizer);
 	free(parser);
+}
+
+void mat_parser_describe_error_position(mat_parser_t* parser) {
+	const char* error_msg = mat_err_get();
+	size_t row_pos = mat_tokenizer_get_row(parser->tokenizer);
+	size_t col_pos = mat_tokenizer_get_col(parser->tokenizer);
+	printf("<input>:%zu:%zu: \033[1;31mError\033[0m: %s\n", row_pos, col_pos, error_msg);
+
+	const char* row = mat_tokenizer_get_row_str(parser->tokenizer);
+	size_t row_len = get_row_len(row);
+	fwrite(row, 1u, row_len, stdout);
+	putchar('\n');
+	size_t snake = col_pos - 1;
+	for (size_t i = 0; i < snake; ++i) {
+		putchar(' ');
+	}
+	printf("\033[1;32m^\033[0;32m");
+	snake = mat_tokenizer_get_token_len(parser->tokenizer) - 1;
+	for (size_t i = 0; i < snake; ++i) {
+		putchar('~');
+	}
+	printf("\033[0m\n");
 }
 
 
@@ -135,4 +164,15 @@ static mat_expr_t* parse_literal(mat_parser_t* parser) {
 	mpf_clear(st);
 	mpq_clear(r);
 	return expr;
+}
+
+static size_t get_row_len(const char* str) {
+	size_t l = 0;
+	for (const char* p = str; *p != '\0'; ++p) {
+		if (*p == '\r' || *p == '\n') {
+			break;
+		}
+		++l;
+	}
+	return l;
 }

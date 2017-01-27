@@ -52,7 +52,10 @@ static char* format_with_allocation(const char* fmt, va_list ap) {
 
 	while (true) {
 		/* Try to print in the allocated space */
-		n = vsnprintf(p, (size_t) size, fmt, ap);
+		va_list args = {0};
+		va_copy(args, ap);
+		n = vsnprintf(p, (size_t) size, fmt, args);
+		va_end(args);
 		/* Check error code */
 		if (n < 0) {
 			free(p);

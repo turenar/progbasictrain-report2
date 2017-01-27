@@ -81,9 +81,10 @@ mat_tokenizer_token_type_t mat_tokenizer_next(mat_tokenizer_t* tokenizer) {
 			// skip numeric chars
 		}
 		if (start + 1 == p) {
-			return MAT_TOKEN_UNKNOWN;
+			type = MAT_TOKEN_UNKNOWN;
+		} else {
+			type = MAT_TOKEN_LITERAL;
 		}
-		type = MAT_TOKEN_LITERAL;
 	} else if (c == '[') {
 		type = MAT_TOKEN_FUNC_OPENING_BRACKET;
 	} else if (c == ']') {
@@ -91,7 +92,7 @@ mat_tokenizer_token_type_t mat_tokenizer_next(mat_tokenizer_t* tokenizer) {
 	} else if (c == ',') {
 		type = MAT_TOKEN_FUNC_ARG_SEPARATOR;
 	} else {
-		return MAT_TOKEN_UNKNOWN;
+		type = MAT_TOKEN_UNKNOWN;
 	}
 
 	tokenizer->token_start = start;
@@ -123,12 +124,24 @@ char* mat_tokenizer_dup_token(mat_tokenizer_t* tokenizer) {
 	return out;
 }
 
+const char* mat_tokenizer_get_str(mat_tokenizer_t* tokenizer) {
+	return tokenizer->orig;
+}
+
+const char* mat_tokenizer_get_row_str(mat_tokenizer_t* tokenizer) {
+	return tokenizer->row_start;
+}
+
 size_t mat_tokenizer_get_row(mat_tokenizer_t* tokenizer) {
 	return tokenizer->row;
 }
 
 size_t mat_tokenizer_get_col(mat_tokenizer_t* tokenizer) {
 	return (size_t) (tokenizer->token_start - tokenizer->row_start + 1u);
+}
+
+size_t mat_tokenizer_get_token_len(mat_tokenizer_t* tokenizer) {
+	return (size_t) (tokenizer->token_end - tokenizer->token_start);
 }
 
 

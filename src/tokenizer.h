@@ -27,7 +27,10 @@ mat_tokenizer_token_type_t mat_tokenizer_next(mat_tokenizer_t*);
 const char* mat_tokenizer_get_token(mat_tokenizer_t*);
 char* mat_tokenizer_dup_token(mat_tokenizer_t*) __attribute_malloc__;
 
+const char* mat_tokenizer_get_str(mat_tokenizer_t*);
+const char* mat_tokenizer_get_row_str(mat_tokenizer_t*);
 size_t mat_tokenizer_get_row(mat_tokenizer_t*);
 size_t mat_tokenizer_get_col(mat_tokenizer_t*);
+size_t mat_tokenizer_get_token_len(mat_tokenizer_t*);
 
 const char* mat_tokenizer_get_token_type_name(mat_tokenizer_token_type_t);
