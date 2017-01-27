@@ -61,3 +61,37 @@ mat_error_t mat_fn_common_apply_mpfr_function(const mat_expr_t* expr, mpq_t out,
 	mpf_clear(result_f);
 	return MAT_SUCCESS;
 }
+
+mat_error_t mat_fn_common_apply_mpfr_bifunction(const mat_expr_t* expr, mpq_t out, mpfr_bifunc fn) {
+	mat_expr_t** args = expr->value.expr.args;
+	mpq_t a_q = {0};
+	mpq_t b_q = {0};
+	mpq_init(a_q);
+	mpq_init(b_q);
+	args[0]->op_def->calc_value(args[0], a_q);
+	args[1]->op_def->calc_value(args[1], b_q);
+
+	mpfr_t a_fr = {0};
+	mpfr_t b_fr = {0};
+	mpfr_t out_fr = {0};
+	mpfr_init(a_fr);
+	mpfr_init(b_fr);
+	mpfr_init(out_fr);
+	mpfr_set_q(a_fr, a_q, MPFR_RNDN);
+	mpfr_set_q(b_fr, b_q, MPFR_RNDN);
+	fn(out_fr, a_fr, b_fr, MPFR_RNDN);
+
+	mpf_t out_f = {0};
+	mpf_init(out_f);
+	mpfr_get_f(out_f, out_fr, MPFR_RNDN);
+	mpq_set_f(out, out_f);
+
+	mpq_clear(a_q);
+	mpq_clear(b_q);
+	mpfr_clear(a_fr);
+	mpfr_clear(b_fr);
+	mpfr_clear(out_fr);
+	mpf_clear(out_f);
+
+	return MAT_SUCCESS;
+}

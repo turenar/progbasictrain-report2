@@ -8,7 +8,7 @@
 #include "world.h"
 
 int main() {
-	const char* expr = "Plus [ Times [ Sin [ 13.4 ] , 3 ] , 2 ]";
+	const char* expr = "Log[Exp[2]]";
 	printf("expression:\t%s\n", expr);
 
 	int exitcode;

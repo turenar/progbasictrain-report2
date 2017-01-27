@@ -15,3 +15,4 @@ extern mat_op_def_t mat_fn_sin;
 extern mat_op_def_t mat_fn_cos;
 extern mat_op_def_t mat_fn_exp;
 extern mat_op_def_t mat_fn_log;
+extern mat_op_def_t mat_fn_power;
