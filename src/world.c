@@ -29,6 +29,7 @@ void mat_world_put_stdfunc(mat_world_t* w) {
 	PUT_OP(mat_fn_times);
 	PUT_OP(mat_fn_divide);
 	PUT_OP(mat_fn_sin);
+	PUT_OP(mat_fn_cos);
 #undef PUT_OP
 }
 
