@@ -8,6 +8,7 @@ treeize_SOURCES = error.c \
 				  fns/fn_variable.c \
 				  fns/fn_cos.c \
 				  fns/fn_divide.c \
+				  fns/fn_exp.c \
 				  fns/fn_times.c \
 				  fns/fn_plus.c \
 				  fns/fn_sin.c \
