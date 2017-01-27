@@ -1,6 +1,7 @@
 #pragma once
 
 #include "../fwddecl.h"
+#include "../op.h"
 
 extern mat_op_def_t mat_fn_const;
 extern mat_op_def_t mat_fn_variable;

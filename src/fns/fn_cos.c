@@ -2,8 +2,6 @@
 
 #include "fns.h"
 #include <mpfr.h>
-#include "../expr.h"
-#include "../op.h"
 #include "fn_common.h"
 
 static void show_expression(const mat_expr_t*);
