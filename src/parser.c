@@ -6,6 +6,7 @@
 #include "tokenizer.h"
 #include "error.h"
 #include "fns/fns.h"
+#include "world.h"
 
 struct mat_parser {
 	mat_tokenizer_t* tokenizer;
@@ -54,6 +55,11 @@ static mat_expr_t* parse_func(mat_parser_t* parser) {
 	mat_tokenizer_token_type_t next_token_type;
 
 	char* func_name = mat_tokenizer_dup_token(parser->tokenizer);
+	mat_op_def_t* op_def = mat_world_get_op(parser->world, func_name);
+	if (op_def == NULL) {
+		mat_err_set_format(MAT_UNKNOWN_FUNC, "unknown function: %s", func_name);
+		goto free_func_name;
+	}
 
 	next_token_type = mat_tokenizer_next(parser->tokenizer);
 	if (next_token_type != MAT_TOKEN_FUNC_OPENING_BRACKET) {
@@ -90,8 +96,7 @@ static mat_expr_t* parse_func(mat_parser_t* parser) {
 		}
 	}
 
-	free(func_name); // TODO
-	return mat_expr_new_args(1, &mat_fn_add, arg_count, args);
+	return mat_expr_new_args(1, op_def, arg_count, args);
 
 free_args:
 	for (unsigned int i = 0; i < arg_count; ++i) {
