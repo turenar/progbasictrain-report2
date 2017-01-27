@@ -54,7 +54,7 @@ static mat_expr_t* parse_expr(mat_parser_t* parser, mat_tokenizer_token_type_t t
 static mat_expr_t* parse_func(mat_parser_t* parser) {
 	mat_tokenizer_token_type_t next_token_type;
 
-	char* func_name = mat_tokenizer_dup_token(parser->tokenizer);
+	const char* func_name = mat_tokenizer_get_token(parser->tokenizer);
 	mat_op_def_t* op_def = mat_world_get_op(parser->world, func_name);
 	if (op_def == NULL) {
 		mat_err_set_format(MAT_UNKNOWN_FUNC, "unknown function: %s", func_name);
@@ -103,7 +103,7 @@ free_args:
 		mat_expr_free(args[i]);
 	}
 free_func_name:
-	free(func_name);
+	// not alloced
 	return NULL;
 }
 
