@@ -20,3 +20,19 @@ void mat_fn_common_show_expression(const mat_expr_t* expr) {
 	}
 	printf("]");
 }
+
+mat_error_t mat_fn_common_apply_bifunction(const mat_expr_t* expr, mpq_t out, mpq_bifunc fn) {
+	mat_expr_t** args = expr->value.expr.args;
+	mpq_t a = {0};
+	mpq_t b = {0};
+	mpq_init(a);
+	mpq_init(b);
+	args[0]->op_def->calc_value(args[0], a);
+	args[1]->op_def->calc_value(args[1], b);
+
+	fn(out, a, b);
+	mpq_clear(a);
+	mpq_clear(b);
+
+	return MAT_SUCCESS;
+}
