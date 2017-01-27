@@ -23,7 +23,10 @@ void mat_world_free(mat_world_t* w) {
 }
 
 void mat_world_put_stdfunc(mat_world_t* w) {
-	mat_world_put_op(w, mat_fn_plus.name, &mat_fn_plus);
+#define PUT_OP(var) mat_world_put_op(w, var.name, &var);
+	PUT_OP(mat_fn_plus);
+	PUT_OP(mat_fn_times);
+#undef PUT_OP
 }
 
 void mat_world_put_op(mat_world_t* w, const char* name, mat_op_def_t* def) {
