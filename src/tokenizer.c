@@ -2,9 +2,7 @@
 
 #include "tokenizer.h"
 #include <stdbool.h>
-#include <stddef.h>
 #include <stdlib.h>
-#include <string.h>
 
 struct mat_tokenizer {
 	const char const* orig;
@@ -113,6 +111,18 @@ const char* mat_tokenizer_get_token(mat_tokenizer_t* tokenizer) {
 	return tokenizer->buf;
 }
 
+char* mat_tokenizer_dup_token(mat_tokenizer_t* tokenizer) {
+	const char* start = tokenizer->token_start;
+	const char* end = tokenizer->token_end;
+	char* out = (char*) malloc((size_t) (end - start + 1u));
+	char* out_p = out;
+	for (const char* in_p = start; in_p != end;) {
+		*out_p++ = *in_p++;
+	}
+	*out_p = '\0';
+	return out;
+}
+
 size_t mat_tokenizer_get_row(mat_tokenizer_t* tokenizer) {
 	return tokenizer->row;
 }
@@ -149,27 +159,23 @@ static const char* skip_space_chars(mat_tokenizer_t* tokenizer, const char* str)
 	return p;
 }
 
+
+const char* mat_tokenizer_name[MAT_TOKEN_TOKEN_TYPE_MAX] = {
+		"INIT",
+		"UNKNOWN",
+		"EOD",
+		"fn-name",
+		"fn-opbr",
+		"fn-argsp",
+		"fn-clbr",
+		"var",
+		"literal"
+};
+
 const char* mat_tokenizer_get_token_type_name(mat_tokenizer_token_type_t t) {
-	switch (t) {
-		case MAT_TOKEN_INITIAL:
-			return "<initial>";
-		case MAT_TOKEN_UNKNOWN:
-			return "<unknown>";
-		case MAT_TOKEN_END_OF_EXPRESSION:
-			return "<EOD>";
-		case MAT_TOKEN_FUNC_NAME:
-			return "fn-name";
-		case MAT_TOKEN_FUNC_OPENING_BRACKET:
-			return "fn-opbr";
-		case MAT_TOKEN_FUNC_ARG_SEPARATOR:
-			return "fn-argsp";
-		case MAT_TOKEN_FUNC_CLOSING_BRACKET:
-			return "fn-clbr";
-		case MAT_TOKEN_VARIABLE:
-			return "var";
-		case MAT_TOKEN_LITERAL:
-			return "literal";
-		default:
-			return "<illegal>";
+	if (t >= MAT_TOKEN_TOKEN_TYPE_MAX) {
+		return "<illegal>";
+	} else {
+		return mat_tokenizer_name[t];
 	}
 }
