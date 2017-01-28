@@ -16,6 +16,9 @@ void mat_err_set_format(mat_error_t errid, const char* fmt, ...) {
 	va_start(ap, fmt);
 	char* msg = format_with_allocation(fmt, ap);
 	va_end(ap);
+	if (error_msg) {
+		free(error_msg);
+	}
 	if (msg) {
 		error_id = errid;
 		error_msg = msg;
