@@ -48,14 +48,14 @@ static char* format_with_allocation(const char* fmt, va_list ap) {
 	int size = 100;     /* Guess we need no more than 100 bytes */
 	char* p;
 
-	p = malloc((size_t) size);
+	p = (char*) malloc((size_t) size);
 	if (p == NULL) {
 		return NULL;
 	}
 
 	while (true) {
 		/* Try to print in the allocated space */
-		va_list args = {0};
+		va_list args;
 		va_copy(args, ap);
 		n = vsnprintf(p, (size_t) size, fmt, args);
 		va_end(args);
@@ -73,7 +73,7 @@ static char* format_with_allocation(const char* fmt, va_list ap) {
 		/* Else try again with more space */
 		size = n + 1;       /* Precisely what is needed */
 
-		char* np = realloc(p, (size_t) size);
+		char* np = (char*) realloc(p, (size_t) size);
 		if (np == NULL) {
 			free(p);
 			return NULL;

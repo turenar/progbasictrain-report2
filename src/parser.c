@@ -98,8 +98,9 @@ static mat_expr_t* parse_func(mat_parser_t* parser) {
 		goto free_func_name;
 	}
 
-	unsigned int arg_count = 0;
+	unsigned int arg_count;
 	mat_expr_t* args[30];
+	arg_count = 0;
 
 	next_token_type = mat_tokenizer_next(parser->tokenizer);
 	if (next_token_type != MAT_TOKEN_FUNC_CLOSING_BRACKET) {
@@ -154,10 +155,10 @@ static mat_expr_t* parse_var(mat_parser_t* parser) {
 
 static mat_expr_t* parse_literal(mat_parser_t* parser) {
 	const char* buf = mat_tokenizer_get_token(parser->tokenizer);
-	mpf_t st = {0};
+	mpf_t st = UNINIT_WARNING_SUPPRESSOR;
 	mpf_init(st);
 	mpf_set_str(st, buf, 10);
-	mpq_t r = {0};
+	mpq_t r = UNINIT_WARNING_SUPPRESSOR;
 	mpq_init(r);
 	mpq_set_f(r, st);
 	mat_expr_t* expr = mat_expr_new_const(r);

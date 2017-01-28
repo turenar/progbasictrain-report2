@@ -5,7 +5,7 @@
 #include <stdlib.h>
 
 struct mat_tokenizer {
-	const char const* orig;
+	const char* /*const*/ orig;
 	const char* row_start;
 	const char* token_start;
 	const char* token_end;
@@ -50,7 +50,7 @@ void mat_tokenizer_free(mat_tokenizer_t* tokenizer) {
 }
 
 mat_tokenizer_token_type_t mat_tokenizer_next(mat_tokenizer_t* tokenizer) {
-	const char const* start = skip_space_chars(tokenizer, tokenizer->token_end);
+	const char* const start = skip_space_chars(tokenizer, tokenizer->token_end);
 	const char* p = start;
 	char c = *p++;
 	mat_tokenizer_token_type_t type;

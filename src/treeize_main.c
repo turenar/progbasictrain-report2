@@ -24,7 +24,7 @@ int main() {
 	e->op_def->show_expression(e);
 	printf("\n");
 
-	mpq_t result = {0};
+	mpq_t result;
 	mpq_init(result);
 	if (e->op_def->calc_value(e, result)) {
 		exitcode = 1;
