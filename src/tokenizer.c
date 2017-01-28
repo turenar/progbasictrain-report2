@@ -23,14 +23,14 @@ static bool is_space(char);
 static const char* skip_space_chars(mat_tokenizer_t*, const char*);
 
 /*
- * expr          := SP (<fn> | <var> | <const>) SP
+ * expr          := SP (<fn> | <var> | <literal>) SP
  * fn            := <fn-name> <op-bracket> SP <expr> SP (<arg-separator> SP <expr> SP)? <close-bracket>
  * op-bracket    := "["
  * close-bracket := "]"
  * arg-separator := ","
  * fn-name       := "[:alpha:]" ("[:alnum:]")+
  * var           := "[:alpha:]"
- * const         := ("[:numeric:]")+ ("." ("[:numeric:]")* )?
+ * literal       := ([-+])? ("[:numeric:]")+ ("." ("[:numeric:]")* )?
  *                | "." ("[:numeric:]")+
  */
 
@@ -66,9 +66,13 @@ mat_tokenizer_token_type_t mat_tokenizer_next(mat_tokenizer_t* tokenizer) {
 			tokenizer->token_end = p;
 			type = MAT_TOKEN_VARIABLE;
 		}
-	} else if (is_numeric(c)) {
+	} else if (c == '+' || c == '-' || is_numeric(c)) {
 		for (; is_numeric(*p); ++p) {
 			// skip numeric chars
+		}
+		if ((c == '+' || c == '-') && start + 1 == p) {
+			type = MAT_TOKEN_UNKNOWN;
+			goto error;
 		}
 		if (*p == '.') {
 			for (p = p + 1; is_numeric(*p); ++p) {
@@ -95,6 +99,7 @@ mat_tokenizer_token_type_t mat_tokenizer_next(mat_tokenizer_t* tokenizer) {
 		type = MAT_TOKEN_UNKNOWN;
 	}
 
+error:
 	tokenizer->token_start = start;
 	tokenizer->token_end = p;
 	tokenizer->token_type = type;
