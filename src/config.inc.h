@@ -16,10 +16,4 @@
 #endif
 #endif
 
-#ifdef __cplusplus
-#define UNINIT_WARNING_SUPPRESSOR {}
-#else
-#define UNINIT_WARNING_SUPPRESSOR {0}
-#endif
-
 #define UNUSED_VAR(x) ((void)x)

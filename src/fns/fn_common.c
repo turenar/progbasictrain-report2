@@ -25,8 +25,8 @@ void mat_fn_common_show_expression(const mat_expr_t* expr) {
 
 mat_error_t mat_fn_common_apply_bifunction(const mat_expr_t* expr, mpq_t out, mpq_bifunc fn) {
 	mat_expr_t** args = expr->value.expr.args;
-	mpq_t a = UNINIT_WARNING_SUPPRESSOR;
-	mpq_t b = UNINIT_WARNING_SUPPRESSOR;
+	mpq_t a;
+	mpq_t b;
 	mpq_init(a);
 	mpq_init(b);
 	args[0]->op_def->calc_value(args[0], a);
@@ -41,18 +41,18 @@ mat_error_t mat_fn_common_apply_bifunction(const mat_expr_t* expr, mpq_t out, mp
 
 mat_error_t mat_fn_common_apply_mpfr_function(const mat_expr_t* expr, mpq_t out, mpfr_func fn) {
 	mat_expr_t** args = expr->value.expr.args;
-	mpq_t arg = UNINIT_WARNING_SUPPRESSOR;
+	mpq_t arg;
 	mpq_init(arg);
 	args[0]->op_def->calc_value(args[0], arg);
 
-	mpfr_t in_fr = UNINIT_WARNING_SUPPRESSOR;
-	mpfr_t out_fr = UNINIT_WARNING_SUPPRESSOR;
+	mpfr_t in_fr;
+	mpfr_t out_fr;
 	mpfr_init(in_fr);
 	mpfr_init(out_fr);
 	mpfr_set_q(in_fr, arg, MPFR_RNDN);
 	fn(out_fr, in_fr, MPFR_RNDN);
 
-	mpf_t result_f = UNINIT_WARNING_SUPPRESSOR;
+	mpf_t result_f;
 	mpf_init(result_f);
 	mpfr_get_f(result_f, out_fr, MPFR_RNDN);
 	mpq_set_f(out, result_f);
@@ -66,16 +66,16 @@ mat_error_t mat_fn_common_apply_mpfr_function(const mat_expr_t* expr, mpq_t out,
 
 mat_error_t mat_fn_common_apply_mpfr_bifunction(const mat_expr_t* expr, mpq_t out, mpfr_bifunc fn) {
 	mat_expr_t** args = expr->value.expr.args;
-	mpq_t a_q = UNINIT_WARNING_SUPPRESSOR;
-	mpq_t b_q = UNINIT_WARNING_SUPPRESSOR;
+	mpq_t a_q;
+	mpq_t b_q;
 	mpq_init(a_q);
 	mpq_init(b_q);
 	args[0]->op_def->calc_value(args[0], a_q);
 	args[1]->op_def->calc_value(args[1], b_q);
 
-	mpfr_t a_fr = UNINIT_WARNING_SUPPRESSOR;
-	mpfr_t b_fr = UNINIT_WARNING_SUPPRESSOR;
-	mpfr_t out_fr = UNINIT_WARNING_SUPPRESSOR;
+	mpfr_t a_fr;
+	mpfr_t b_fr;
+	mpfr_t out_fr;
 	mpfr_init(a_fr);
 	mpfr_init(b_fr);
 	mpfr_init(out_fr);
@@ -83,7 +83,7 @@ mat_error_t mat_fn_common_apply_mpfr_bifunction(const mat_expr_t* expr, mpq_t ou
 	mpfr_set_q(b_fr, b_q, MPFR_RNDN);
 	fn(out_fr, a_fr, b_fr, MPFR_RNDN);
 
-	mpf_t out_f = UNINIT_WARNING_SUPPRESSOR;
+	mpf_t out_f;
 	mpf_init(out_f);
 	mpfr_get_f(out_f, out_fr, MPFR_RNDN);
 	mpq_set_f(out, out_f);
