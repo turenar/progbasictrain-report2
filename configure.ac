@@ -2,7 +2,7 @@
 # Process this file with autoconf to produce a configure script.
 
 AC_PREREQ([2.60])
-AC_INIT([matlang], [1], [snswinhaiku dot lo at gmail dot com])
+AC_INIT([matlang], [0.1], [snswinhaiku dot lo at gmail dot com])
 AC_CONFIG_SRCDIR([src/treeize_main.c])
 AC_CONFIG_HEADERS([src/config.h])
 AC_CONFIG_AUX_DIR([m4/tools])
@@ -10,10 +10,12 @@ AC_CONFIG_MACRO_DIR([m4/generated])
 
 AC_CANONICAL_SYSTEM
 
+AC_SUBST([mat_so_version], [1:0:0])
+
 __conf_saved_cflags="$CFLAGS"
 AC_PROG_CC
 CFLAGS="$__conf_saved_cflags"
-LT_INIT([disable-shared])
+LT_INIT([])
 AM_INIT_AUTOMAKE([foreign subdir-objects])
 m4_ifdef([AM_SILENT_RULES], [AM_SILENT_RULES([yes])])
 m4_ifdef([PKG_CHECK_MODULES],
@@ -52,9 +54,6 @@ AX_CHECK_COMPILE_FLAG([-pedantic], [AX_APPEND_FLAG([-pedantic], [warn_flags])], 
 AX_CHECK_LINK_FLAG([-rdynamic], [AX_APPEND_FLAG([-rdynamic], [LDFLAGS])], [])
 
 # Checks for libraries.
-dnl PKG_PROG_PKG_CONFIG
-AC_SEARCH_LIBS([__gmpz_init], [gmp], [], [AC_MSG_ERROR([GNU MP not found.])])
-AC_SEARCH_LIBS([mpfr_add], [mpfr], [], [AC_MSG_ERROR([mpfr not found.])])
 
 # Checks for header files.
 
@@ -63,9 +62,11 @@ AC_SEARCH_LIBS([mpfr_add], [mpfr], [], [AC_MSG_ERROR([mpfr not found.])])
 # Checks for library functions.
 saved_LIBS="$LIBS"
 LIBS=
-AC_SEARCH_LIBS([sqrt], [m], [], [AC_MSG_ERROR([sqrt is not found])])
-mathlib_LIBS="$LIBS"
-AC_SUBST([mathlib_LIBS])
+AC_SEARCH_LIBS([__gmpz_init], [gmp], [], [AC_MSG_ERROR([GNU MP not found.])])
+gmp_LIBS="$LIBS"
+LIBS=
+AC_SEARCH_LIBS([mpfr_add], [mpfr], [], [AC_MSG_ERROR([mpfr not found.])])
+mpfr_LIBS="$LIBS"
 LIBS="$saved_LIBS"
 
 # leak sanitizer spends more time
@@ -109,6 +110,8 @@ fi
 
 AC_SUBST([CFLAGS])
 AC_SUBST([warn_flags])
+AC_SUBST([gmp_LIBS])
+AC_SUBST([mpfr_LIBS])
 AM_CONDITIONAL([cross_compiling], [test x$cross_compiling != xno])
 AC_CONFIG_FILES([Makefile externals/Makefile src/Makefile test/Makefile])
 AC_OUTPUT
