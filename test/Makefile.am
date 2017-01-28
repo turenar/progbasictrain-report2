@@ -20,4 +20,8 @@ fns_test_SOURCES = fns/fns_test.c \
 				   fns/fn_subtract_test.c \
 				   fns/fn_times_test.c \
 				   fns/fns_test_common.c
-fns_test_LDADD = $(top_builddir)/src/libmatfunc.la $(top_builddir)/externals/libcutest.a
+fns_test_LDADD = $(top_builddir)/src/libmatcore.la \
+				 $(top_builddir)/src/libmatfunc.la \
+				 $(top_builddir)/externals/libcutest.a \
+				 $(gmp_LIBS) $(mpfr_LIBS)
+#fns_test_LDFLAGS = -static

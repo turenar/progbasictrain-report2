@@ -8,12 +8,12 @@ libmatcore_la_SOURCES = error.c \
 						op_hash.c \
 						parser.c \
 						logger.c \
-						world.c
+						world.c \
+						fns/fn_const.c \
+						fns/fn_variable.c
 libmatcore_la_LIBADD = $(gmp_LIBS)
 libmatcore_la_LDFLAGS = -version-info $(mat_so_version)
 libmatfunc_la_SOURCES = fns/fn_common.c \
-						fns/fn_const.c \
-						fns/fn_variable.c \
 						fns/fn_cos.c \
 						fns/fn_divide.c \
 						fns/fn_exp.c \
