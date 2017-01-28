@@ -81,14 +81,8 @@ test -d bin || mkdir bin
 
 # has_cmd x86_64-w64-mingw32-gcc && check_compile cibuild-mingw-x86_64 --host=x86_64-w64-mingw32
 # has_cmd i686-w64-mingw32-gcc && check_compile cibuild-mingw-i686 --host=i686-w64-mingw32
-check_compile cibuild-native+psgv
-check_compile cibuild-native+g  --without-libsixel --without-libpng --without-opencv
-check_compile cibuild-native+s  --without-gtk3 --without-libpng --without-opencv
-check_compile cibuild-native+p  --without-gtk3 --without-libsixel --without-opencv
-check_compile cibuild-native+v  --without-gtk3 --without-libsixel --without-libpng
-check_compile cibuild-native    --without-gtk3 --without-libsixel --without-libpng --without-opencv
-check_compile cibuild-native+cpsgv CC=clang
-check_compile cibuild-native+c     CC=clang --without-gtk3 --without-libsixel --without-libpng --without-opencv
+check_compile cibuild-native
+check_compile cibuild-native+c     CC=clang
 check_compile cibuild-native+xx    CC=g++ CFLAGS='-std=c++11'
 
 if ${parallel_pid+:} false; then
@@ -106,7 +100,7 @@ if which gcovr >/dev/null 2>&1; then
 	sed -i.bak -e "s@${proj_dir}/@@g" -e "s@${dot_dir}@@g" bin/cibuild-coverage/src/coverage.xml
 fi
 
-cd bin/cibuild-native+psgv-debug || _die
+cd bin/cibuild-native-debug || _die
 make package || _die
 unzip 440706.zip || _die
 cd dist || _die
