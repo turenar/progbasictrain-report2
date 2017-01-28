@@ -16,3 +16,6 @@ extern mat_op_def_t mat_fn_cos;
 extern mat_op_def_t mat_fn_exp;
 extern mat_op_def_t mat_fn_log;
 extern mat_op_def_t mat_fn_power;
+
+
+void mat_fn_put_stdfunc(mat_world_t* w);

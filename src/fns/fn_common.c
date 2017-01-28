@@ -5,6 +5,8 @@
 #include "assert.h"
 #include "../expr.h"
 #include "../op.h"
+#include "../world.h"
+#include "fns.h"
 
 void mat_fn_common_show_expression(const mat_expr_t* expr) {
 	assert(expr->op_id >= 0);
@@ -94,4 +96,18 @@ mat_error_t mat_fn_common_apply_mpfr_bifunction(const mat_expr_t* expr, mpq_t ou
 	mpf_clear(out_f);
 
 	return MAT_SUCCESS;
+}
+
+void mat_fn_put_stdfunc(mat_world_t* w) {
+#define PUT_OP(var) mat_world_put_op(w, var.name, &var);
+	PUT_OP(mat_fn_plus);
+	PUT_OP(mat_fn_subtract);
+	PUT_OP(mat_fn_times);
+	PUT_OP(mat_fn_divide);
+	PUT_OP(mat_fn_sin);
+	PUT_OP(mat_fn_cos);
+	PUT_OP(mat_fn_exp);
+	PUT_OP(mat_fn_log);
+	PUT_OP(mat_fn_power);
+#undef PUT_OP
 }

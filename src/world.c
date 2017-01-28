@@ -4,7 +4,6 @@
 #include <stdlib.h>
 #include "op.h"
 #include "op_hash.h"
-#include "fns/fns.h"
 
 struct mat_world {
 	mat_op_hash_t* hash;
@@ -20,20 +19,6 @@ mat_world_t* mat_world_new() {
 void mat_world_free(mat_world_t* w) {
 	mat_op_hash_free(w->hash);
 	free(w);
-}
-
-void mat_world_put_stdfunc(mat_world_t* w) {
-#define PUT_OP(var) mat_world_put_op(w, var.name, &var);
-	PUT_OP(mat_fn_plus);
-	PUT_OP(mat_fn_subtract);
-	PUT_OP(mat_fn_times);
-	PUT_OP(mat_fn_divide);
-	PUT_OP(mat_fn_sin);
-	PUT_OP(mat_fn_cos);
-	PUT_OP(mat_fn_exp);
-	PUT_OP(mat_fn_log);
-	PUT_OP(mat_fn_power);
-#undef PUT_OP
 }
 
 void mat_world_put_op(mat_world_t* w, const char* name, mat_op_def_t* def) {

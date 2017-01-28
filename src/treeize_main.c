@@ -1,19 +1,17 @@
 #include <gmp.h>
-#include <stdbool.h>
 #include <stdio.h>
-#include "error.h"
+#include "fns/fns.h"
 #include "expr.h"
-#include "op.h"
 #include "parser.h"
 #include "world.h"
 
 int main() {
-	const char* expr = "Log[UnknownUUUDFAsdjfkjsdflkajsdlfkjasdlfkjasdjhsdkfjhaskdfjhaskdjfhaskdjfhaskdfjhasfhaksdjfhaksdjfhaksdjfhaks[2]]";
+	const char* expr = "Log[Exp[2]]";
 	printf("expression:\t%s\n", expr);
 
 	int exitcode;
 	mat_world_t* world = mat_world_new();
-	mat_world_put_stdfunc(world);
+	mat_fn_put_stdfunc(world);
 
 	mat_parser_t* parser = mat_parser_new(world, expr);
 	mat_expr_t* e = mat_parser_parse(parser);
