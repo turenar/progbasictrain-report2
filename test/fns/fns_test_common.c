@@ -52,6 +52,7 @@ static void assert_parse_failure(CuTest* tc, mat_world_t* w, const char* fmt, ..
 
 	mat_parser_t* parser = mat_parser_new(w, buf);
 	CuAssertPtrEquals(tc, NULL, mat_parser_parse(parser));
+	CuAssertIntEquals(tc, MAT_ARG_COUNT_MISMATCH, mat_err_get_id());
 	mat_parser_free(parser);
 }
 

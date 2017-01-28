@@ -43,6 +43,10 @@ const char* mat_err_get() {
 	}
 }
 
+mat_error_t mat_err_get_id() {
+	return error_id;
+}
+
 static char* format_with_allocation(const char* fmt, va_list ap) {
 	int n;
 	int size = 100;     /* Guess we need no more than 100 bytes */
