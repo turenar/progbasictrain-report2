@@ -40,7 +40,7 @@ mat_tokenizer_t* mat_tokenizer_new(const char* str) {
 	ret->row_start = str;
 	ret->token_start = str;
 	ret->token_end = str;
-	ret->token_type = MAT_TOKEN_UNKNOWN;
+	ret->token_type = MAT_TOKEN_INITIAL;
 	ret->row = 1;
 	return ret;
 }
