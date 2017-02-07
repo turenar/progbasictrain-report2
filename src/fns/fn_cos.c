@@ -18,5 +18,5 @@ static void show_expression(const mat_expr_t* expr) {
 }
 
 static mat_error_t calc_value(const mat_expr_t* expr, mpq_t result) {
-	return mat_fn_common_apply_mpfr_function(expr, result, NULL,&mpfr_cos);
+	return mat_fn_common_apply_mpfr_function(expr, result, NULL, &mpfr_cos);
 }

@@ -1,9 +1,9 @@
 #include <gmp.h>
 #include <stdio.h>
-#include "fns/fns.h"
 #include "expr.h"
 #include "parser.h"
 #include "world.h"
+#include "fns/fns.h"
 
 int main() {
 	const char* expr = "Log[Exp[2]]";

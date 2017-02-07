@@ -1,6 +1,7 @@
 #pragma once
 
 #include "config.inc.h"
+
 /** デバッグ時のみログ表示される */
 void log_debug(const char* file, int line, const char* fmt, ...) __attribute_format__(printf, 3, 4);
 void log_info(const char* file, int line, const char* fmt, ...) __attribute_format__(printf, 3, 4);

@@ -3,10 +3,10 @@
 #include "fn_common.h"
 #include <stdio.h>
 #include "assert.h"
+#include "fns.h"
 #include "../expr.h"
 #include "../op.h"
 #include "../world.h"
-#include "fns.h"
 
 void mat_fn_common_show_expression(const mat_expr_t* expr) {
 	assert(expr->op_id >= 0);
