@@ -55,7 +55,7 @@ static void test_tokenizer_get_row_str(CuTest* tc) {
 	const char* expr = "Plus\n"
 			"[ Times\t[ \n"
 			"Sin [ 13.4 ]\n"
-			" , 3 ] , 2 ]\n";
+			" , 3 ] , x ]\n";
 	mat_tokenizer_t* t = mat_tokenizer_new(expr);
 
 	CuAssertStrEquals(tc, expr, mat_tokenizer_get_row_str(t));
@@ -77,7 +77,7 @@ static void test_tokenizer_get_row_str(CuTest* tc) {
 	check_tokenizer(tc, t, "3", MAT_TOKEN_LITERAL, 4, 4);
 	check_tokenizer(tc, t, "]", MAT_TOKEN_FUNC_CLOSING_BRACKET, 4, 6);
 	check_tokenizer(tc, t, ",", MAT_TOKEN_FUNC_ARG_SEPARATOR, 4, 8);
-	check_tokenizer(tc, t, "2", MAT_TOKEN_LITERAL, 4, 10);
+	check_tokenizer(tc, t, "x", MAT_TOKEN_VARIABLE, 4, 10);
 	check_tokenizer(tc, t, "]", MAT_TOKEN_FUNC_CLOSING_BRACKET, 4, 12);
 
 	check_tokenizer(tc, t, NULL, MAT_TOKEN_END_OF_EXPRESSION, 5, 1);
