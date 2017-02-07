@@ -66,6 +66,7 @@ static void test_parser_illegal_syntax(CuTest* tc) {
 	check_parse_failure(tc, MAT_PARSER_UNEXPECTED_TOKEN, "Test[x,");
 	check_parse_failure(tc, MAT_PARSER_UNEXPECTED_TOKEN, "Test[Test[");
 	check_parse_failure(tc, MAT_PARSER_UNEXPECTED_TOKEN, "Test[Test]");
+	check_parse_failure(tc, MAT_PARSER_UNEXPECTED_TOKEN, "Test[Test[1]");
 	check_parse_failure(tc, MAT_PARSER_UNEXPECTED_TOKEN, "Test[,]");
 	check_parse_failure(tc, MAT_PARSER_UNEXPECTED_TOKEN, "4..2");
 	check_parse_failure(tc, MAT_PARSER_UNEXPECTED_TOKEN, ".");
@@ -75,8 +76,8 @@ static void test_parser_illegal_syntax(CuTest* tc) {
 }
 
 static void test_parser_unknown_func(CuTest* tc) {
-	check_parse_failure(tc, MAT_PARSER_UNEXPECTED_TOKEN, "Unknown[]");
-	check_parse_failure(tc, MAT_PARSER_UNEXPECTED_TOKEN, "tesT[]");
+	check_parse_failure(tc, MAT_UNKNOWN_FUNC, "Unknown[]");
+	check_parse_failure(tc, MAT_UNKNOWN_FUNC, "tesT[]");
 }
 
 static void test_parser_arg_count_mismatch(CuTest* tc) {
@@ -89,7 +90,7 @@ static void test_parser_check_value(CuTest* tc) {
 	check_value(tc, MAT_SUCCESS, 2, "Test[1]");
 	check_value(tc, MAT_HAVE_VARIABLE, 0, "Test[x]");
 	check_value(tc, MAT_HAVE_VARIABLE, 0, "Test[x,1]");
-	check_value(tc, MAT_SUCCESS, 3, "Test[Test[1]");
+	check_value(tc, MAT_SUCCESS, 3, "Test[Test[1]]");
 }
 
 int main() {
