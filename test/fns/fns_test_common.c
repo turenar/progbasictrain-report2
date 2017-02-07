@@ -91,7 +91,7 @@ void test_common_assert_value(CuTest* tc, mat_world_t* w, double ex, const char*
 	CuAssertPtrNotNullMsg(tc, buf, expr);
 	mpq_t t = {0};
 	mpq_init(t);
-	mat_error_t err = expr->op_def->calc_value(expr, t);
+	mat_error_t err = mat_op_calc_value(expr, t);
 	CuAssertIntEquals_Msg(tc, buf, MAT_SUCCESS, err);
 	CuAssertDblEquals_Msg(tc, buf, ex, mpq_get_d(t), 0.000001);
 	mpq_clear(t);
@@ -124,7 +124,7 @@ mat_error_t check_expr_error(CuTest* tc, mat_world_t* w, const char* fmt, ...) {
 
 	mpq_t r;
 	mpq_init(r);
-	mat_error_t err = expr->op_def->calc_value(expr, r);
+	mat_error_t err = mat_op_calc_value(expr, r);
 	mpq_clear(r);
 	mat_expr_free(expr);
 	return err;

@@ -20,7 +20,7 @@ static mat_error_t calc_value(const mat_expr_t* expr, mpq_t r) {
 	mat_expr_t* arg = expr->value.expr.args[0];
 	mpq_t a, b;
 	mpq_inits(a, b, NULL);
-	mat_error_t err = arg->op_def->calc_value(arg, a);
+	mat_error_t err = mat_op_calc_value(arg, a);
 	mpq_set_ui(b, 1, 1);
 	mpq_add(r, a, b);
 	mpq_clears(a, b, NULL);

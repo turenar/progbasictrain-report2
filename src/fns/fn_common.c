@@ -18,7 +18,7 @@ void mat_fn_common_show_expression(const mat_expr_t* expr) {
 			printf(", ");
 		}
 		mat_expr_t* arg = op_expr.args[i];
-		arg->op_def->show_expression(arg);
+		mat_op_show_expression(arg);
 	}
 	printf("]");
 }
@@ -29,8 +29,8 @@ mat_error_t mat_fn_common_apply_bifunction(const mat_expr_t* expr, mpq_t out, ma
 	mpq_t b;
 	mpq_init(a);
 	mpq_init(b);
-	args[0]->op_def->calc_value(args[0], a);
-	args[1]->op_def->calc_value(args[1], b);
+	mat_op_calc_value(args[0], a);
+	mat_op_calc_value(args[1], b);
 
 	mat_error_t t;
 	if (chk) {
@@ -53,7 +53,7 @@ mat_error_t mat_fn_common_apply_mpfr_function(const mat_expr_t* expr, mpq_t out,
 	mat_expr_t** args = expr->value.expr.args;
 	mpq_t arg;
 	mpq_init(arg);
-	args[0]->op_def->calc_value(args[0], arg);
+	mat_op_calc_value(args[0], arg);
 
 	mat_error_t t;
 	if (chk) {
@@ -91,8 +91,8 @@ mat_fn_common_apply_mpfr_bifunction(const mat_expr_t* expr, mpq_t out, mat_bifun
 	mpq_t b_q;
 	mpq_init(a_q);
 	mpq_init(b_q);
-	args[0]->op_def->calc_value(args[0], a_q);
-	args[1]->op_def->calc_value(args[1], b_q);
+	mat_op_calc_value(args[0], a_q);
+	mat_op_calc_value(args[1], b_q);
 
 	mat_error_t t;
 	if (chk) {

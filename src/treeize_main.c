@@ -26,7 +26,7 @@ int main() {
 
 	mpq_t result;
 	mpq_init(result);
-	if (e->op_def->calc_value(e, result)) {
+	if (mat_op_calc_value(e, result)) {
 		exitcode = 1;
 		goto free_expr;
 	}
