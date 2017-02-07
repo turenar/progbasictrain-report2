@@ -12,6 +12,11 @@ int main() {
 	CuSuiteAddSuite(suite, test_fn_subtract());
 	CuSuiteAddSuite(suite, test_fn_times());
 	CuSuiteAddSuite(suite, test_fn_divide());
+	CuSuiteAddSuite(suite, test_fn_cos());
+	CuSuiteAddSuite(suite, test_fn_sin());
+	CuSuiteAddSuite(suite, test_fn_power());
+	CuSuiteAddSuite(suite, test_fn_exp());
+	CuSuiteAddSuite(suite, test_fn_log());
 
 	CuSuiteRun(suite);
 	CuSuiteSummary(suite, output);

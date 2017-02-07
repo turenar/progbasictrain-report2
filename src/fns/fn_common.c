@@ -23,7 +23,7 @@ void mat_fn_common_show_expression(const mat_expr_t* expr) {
 	printf("]");
 }
 
-mat_error_t mat_fn_common_apply_bifunction(const mat_expr_t* expr, mpq_t out, mpq_bifunc fn) {
+mat_error_t mat_fn_common_apply_bifunction(const mat_expr_t* expr, mpq_t out, mat_bifunc_checker chk, mpq_bifunc fn) {
 	mat_expr_t** args = expr->value.expr.args;
 	mpq_t a;
 	mpq_t b;
@@ -32,18 +32,36 @@ mat_error_t mat_fn_common_apply_bifunction(const mat_expr_t* expr, mpq_t out, mp
 	args[0]->op_def->calc_value(args[0], a);
 	args[1]->op_def->calc_value(args[1], b);
 
+	mat_error_t t;
+	if (chk) {
+		t = chk(a, b);
+		if (t) {
+			goto clean_up;
+		}
+	}
+
 	fn(out, a, b);
+	t = MAT_SUCCESS;
+clean_up:
 	mpq_clear(a);
 	mpq_clear(b);
 
-	return MAT_SUCCESS;
+	return t;
 }
 
-mat_error_t mat_fn_common_apply_mpfr_function(const mat_expr_t* expr, mpq_t out, mpfr_func fn) {
+mat_error_t mat_fn_common_apply_mpfr_function(const mat_expr_t* expr, mpq_t out, mat_func_checker chk, mpfr_func fn) {
 	mat_expr_t** args = expr->value.expr.args;
 	mpq_t arg;
 	mpq_init(arg);
 	args[0]->op_def->calc_value(args[0], arg);
+
+	mat_error_t t;
+	if (chk) {
+		t = chk(arg);
+		if (t) {
+			goto clean_up;
+		}
+	}
 
 	mpfr_t in_fr;
 	mpfr_t out_fr;
@@ -57,14 +75,17 @@ mat_error_t mat_fn_common_apply_mpfr_function(const mat_expr_t* expr, mpq_t out,
 	mpfr_get_f(result_f, out_fr, MPFR_RNDN);
 	mpq_set_f(out, result_f);
 
-	mpq_clear(arg);
-	mpfr_clear(in_fr);
-	mpfr_clear(out_fr);
 	mpf_clear(result_f);
-	return MAT_SUCCESS;
+	mpfr_clear(out_fr);
+	mpfr_clear(in_fr);
+	t = MAT_SUCCESS;
+clean_up:
+	mpq_clear(arg);
+	return t;
 }
 
-mat_error_t mat_fn_common_apply_mpfr_bifunction(const mat_expr_t* expr, mpq_t out, mpfr_bifunc fn) {
+mat_error_t
+mat_fn_common_apply_mpfr_bifunction(const mat_expr_t* expr, mpq_t out, mat_bifunc_checker chk, mpfr_bifunc fn) {
 	mat_expr_t** args = expr->value.expr.args;
 	mpq_t a_q;
 	mpq_t b_q;
@@ -72,6 +93,14 @@ mat_error_t mat_fn_common_apply_mpfr_bifunction(const mat_expr_t* expr, mpq_t ou
 	mpq_init(b_q);
 	args[0]->op_def->calc_value(args[0], a_q);
 	args[1]->op_def->calc_value(args[1], b_q);
+
+	mat_error_t t;
+	if (chk) {
+		t = chk(a_q, b_q);
+		if (t) {
+			goto clean_up;
+		}
+	}
 
 	mpfr_t a_fr;
 	mpfr_t b_fr;
@@ -88,14 +117,15 @@ mat_error_t mat_fn_common_apply_mpfr_bifunction(const mat_expr_t* expr, mpq_t ou
 	mpfr_get_f(out_f, out_fr, MPFR_RNDN);
 	mpq_set_f(out, out_f);
 
-	mpq_clear(a_q);
-	mpq_clear(b_q);
+	mpf_clear(out_f);
+	mpfr_clear(out_fr);
 	mpfr_clear(a_fr);
 	mpfr_clear(b_fr);
-	mpfr_clear(out_fr);
-	mpf_clear(out_f);
-
-	return MAT_SUCCESS;
+	t = MAT_SUCCESS;
+clean_up:
+	mpq_clear(a_q);
+	mpq_clear(b_q);
+	return t;
 }
 
 void mat_fn_put_stdfunc(mat_world_t* w) {

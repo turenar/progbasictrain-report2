@@ -15,13 +15,18 @@ AM_TESTS_ENVIRONMENT+= \
 TESTS = fns_test
 check_PROGRAMS = fns_test
 fns_test_SOURCES = fns/fns_test.c \
+				   fns/fn_cos_test.c \
 				   fns/fn_divide_test.c \
+				   fns/fn_exp_test.c \
+				   fns/fn_log_test.c \
 				   fns/fn_plus_test.c \
+				   fns/fn_power_test.c \
+				   fns/fn_sin_test.c \
 				   fns/fn_subtract_test.c \
 				   fns/fn_times_test.c \
 				   fns/fns_test_common.c
 fns_test_LDADD = $(top_builddir)/src/libmatcore.la \
 				 $(top_builddir)/src/libmatfunc.la \
 				 $(top_builddir)/externals/libcutest.a \
-				 $(gmp_LIBS) $(mpfr_LIBS)
-#fns_test_LDFLAGS = -static
+				 $(gmp_LIBS) $(mpfr_LIBS) $(math_LIBS)
+fns_test_LDFLAGS = -static

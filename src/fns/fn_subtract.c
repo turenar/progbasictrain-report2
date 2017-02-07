@@ -18,5 +18,5 @@ static void show_expression(const mat_expr_t* expr) {
 }
 
 static mat_error_t calc_value(const mat_expr_t* expr, mpq_t out) {
-	return mat_fn_common_apply_bifunction(expr, out, mpq_sub);
+	return mat_fn_common_apply_bifunction(expr, out, NULL, mpq_sub);
 }

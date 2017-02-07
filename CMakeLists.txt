@@ -13,6 +13,7 @@ add_library(matfunc src/fns/fns.h src/fns/fn_const.c src/fns/fn_variable.c
 add_executable(treeize
         src/treeize_main.c)
 add_dependencies(treeize matcore matfunc)
-add_executable(fn_plus_test test/fns/fn_plus_test.c test/fns/fn_subtract_test.c test/fns/fn_times_test.c
-        test/fns/fn_divide_test.c test/fns/fns_test.h test/fns/fns_test_common.c test/fns/fns_test_common.h
-        test/fns/fns_test.c)
+add_executable(fn_test test/fns/fns_test.h test/fns/fns_test.c test/fns/fns_test_common.h test/fns/fns_test_common.c
+        test/fns/fn_cos_test.c test/fns/fn_divide_test.c test/fns/fn_exp_test.c test/fns/fn_log_test.c
+        test/fns/fn_plus_test.c test/fns/fn_power_test.c test/fns/fn_sin_test.c test/fns/fn_subtract_test.c
+        test/fns/fn_times_test.c)

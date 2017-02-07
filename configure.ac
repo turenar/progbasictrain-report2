@@ -67,6 +67,9 @@ gmp_LIBS="$LIBS"
 LIBS=
 AC_SEARCH_LIBS([mpfr_add], [mpfr], [], [AC_MSG_ERROR([mpfr not found.])])
 mpfr_LIBS="$LIBS"
+LIBS=
+AC_SEARCH_LIBS([sqrt], [m], [], [AC_MSG_ERROR([sqrt() not found.])])
+math_LIBS="$LIBS"
 LIBS="$saved_LIBS"
 
 # leak sanitizer spends more time
@@ -112,6 +115,7 @@ AC_SUBST([CFLAGS])
 AC_SUBST([warn_flags])
 AC_SUBST([gmp_LIBS])
 AC_SUBST([mpfr_LIBS])
+AC_SUBST([math_LIBS])
 AM_CONDITIONAL([cross_compiling], [test x$cross_compiling != xno])
 AC_CONFIG_FILES([Makefile externals/Makefile src/Makefile test/Makefile])
 AC_OUTPUT

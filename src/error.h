@@ -11,7 +11,9 @@ typedef enum mat_error {
 	MAT_PARSER_UNEXPECTED_TOKEN,
 	MAT_UNKNOWN_FUNC,
 	MAT_ARG_COUNT_MISMATCH,
-	MAT_HAVE_VARIABLE
+	MAT_HAVE_VARIABLE,
+	MAT_DIVIDED_BY_ZERO,
+	MAT_ARITHMETIC_ERROR
 } mat_error_t;
 
 void mat_err_set_format(mat_error_t, const char*, ...) __attribute_format__(printf, 2, 3);
