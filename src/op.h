@@ -13,3 +13,6 @@ struct mat_op_def {
 };
 
 typedef struct mat_op_def mat_op_def_t;
+
+void mat_op_show_expression(const mat_expr_t*);
+mat_error_t mat_op_calc_value(const mat_expr_t*, mpq_t);

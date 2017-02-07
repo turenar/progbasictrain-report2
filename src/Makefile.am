@@ -5,6 +5,7 @@ lib_LTLIBRARIES = libmatcore.la libmatfunc.la
 libmatcore_la_SOURCES = error.c \
 						expr.c \
 						tokenizer.c \
+						op.c \
 						op_hash.c \
 						parser.c \
 						logger.c \
