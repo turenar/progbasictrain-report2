@@ -1,10 +1,10 @@
 #include "config.inc.h"
 
 #include "fns_test_common.h"
-#include "world.h"
 #include <stdio.h>
 #include "expr.h"
 #include "parser.h"
+#include "world.h"
 
 /*
  * parse test

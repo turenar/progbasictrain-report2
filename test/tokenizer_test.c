@@ -1,10 +1,10 @@
 #include "config.inc.h"
 
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
 #include "cutest_util.h"
 #include "tokenizer.h"
-#include <string.h>
-#include <stdlib.h>
-#include <stdio.h>
 
 static void check_tokenizer(CuTest* tc, mat_tokenizer_t* t, const char* s, mat_tokenizer_token_type_t ty,
                             size_t r, size_t c) {

@@ -1,8 +1,8 @@
 #include "config.inc.h"
 
+#include "expr.h"
 #include "fns_test_common.h"
 #include "world.h"
-#include "expr.h"
 
 static double divide(double a, double b) {
 	return a / b;

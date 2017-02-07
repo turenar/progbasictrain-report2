@@ -1,7 +1,7 @@
 #include "config.inc.h"
 
-#include "fns_test_common.h"
 #include <math.h>
+#include "fns_test_common.h"
 
 static double power(double a, double b) {
 	return pow(a, b);

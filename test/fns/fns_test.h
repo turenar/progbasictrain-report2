@@ -1,7 +1,7 @@
 #pragma once
 
-#include "fns/fns.h"
 #include <cutest/CuTest.h>
+#include "fns/fns.h"
 
 CuSuite* test_fn_plus();
 CuSuite* test_fn_subtract();

@@ -1,11 +1,11 @@
 #include "config.inc.h"
 
 #include <stdio.h>
-#include "op.h"
-#include "expr.h"
-#include "world.h"
-#include "parser.h"
 #include "cutest_util.h"
+#include "expr.h"
+#include "op.h"
+#include "parser.h"
+#include "world.h"
 #include "fns/fn_common.h"
 
 static mat_error_t calc_value(const mat_expr_t*, mpq_t);

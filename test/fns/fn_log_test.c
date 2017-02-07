@@ -1,7 +1,7 @@
 #include "config.inc.h"
 
-#include "fns_test_common.h"
 #include <math.h>
+#include "fns_test_common.h"
 #include "world.h"
 
 static void test_fn_log_arguments(CuTest* tc) {
