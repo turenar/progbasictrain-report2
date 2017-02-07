@@ -14,12 +14,12 @@ AM_TESTS_ENVIRONMENT+= \
 	export EXEEXT srcdir;
 
 TESTS = fns_test tokenizer_test
-check_PROGRAMS = fns_test tokenizer_test
+check_PROGRAMS = fns_test tokenizer_test parser_test
 check_LTLIBRARIES = libtest_common.la
 common_ldadd = ../src/libmatcore.la \
-				 ../src/libmatfunc.la \
-				 ../externals/libcutest.la \
-				 $(gmp_LIBS) $(mpfr_LIBS) $(math_LIBS)
+			   ../src/libmatfunc.la \
+			   ../externals/libcutest.la \
+			   $(gmp_LIBS) $(mpfr_LIBS) $(math_LIBS)
 
 libtest_common_la_SOURCES = cutest_util.c
 libtest_common_la_LIBADD = $(common_ldadd)
@@ -39,3 +39,6 @@ fns_test_LDADD = libtest_common.la
 
 tokenizer_test_SOURCES = tokenizer_test.c
 tokenizer_test_LDADD = libtest_common.la
+
+parser_test_SOURCES = parser_test.c
+parser_test_LDADD = libtest_common.la
