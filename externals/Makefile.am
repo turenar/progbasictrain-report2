@@ -1,3 +1,3 @@
-check_LIBRARIES = libcutest.a
+check_LTLIBRARIES = libcutest.la
 
-libcutest_a_SOURCES = cutest/CuTest.c
+libcutest_la_SOURCES = cutest/CuTest.c

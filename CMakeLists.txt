@@ -16,4 +16,5 @@ add_dependencies(treeize matcore matfunc)
 add_executable(fn_test test/fns/fns_test.h test/fns/fns_test.c test/fns/fns_test_common.h test/fns/fns_test_common.c
         test/fns/fn_cos_test.c test/fns/fn_divide_test.c test/fns/fn_exp_test.c test/fns/fn_log_test.c
         test/fns/fn_plus_test.c test/fns/fn_power_test.c test/fns/fn_sin_test.c test/fns/fn_subtract_test.c
-        test/fns/fn_times_test.c)
+        test/fns/fn_times_test.c test/tokenizer_test.c test/cutest_util.h test/cutest_util.c)
+add_executable(tokenizer_test test/tokenizer_test.c)
