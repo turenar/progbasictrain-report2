@@ -34,7 +34,18 @@ mat_parser_t* mat_parser_new(mat_world_t* w, const char* expr) {
 }
 
 mat_expr_t* mat_parser_parse(mat_parser_t* parser) {
-	return parse_expr(parser, mat_tokenizer_next(parser->tokenizer));
+	mat_expr_t* expr = parse_expr(parser, mat_tokenizer_next(parser->tokenizer));
+	if (expr) {
+		mat_tokenizer_token_type_t last_token_ty = mat_tokenizer_next(parser->tokenizer);
+		if (last_token_ty != MAT_TOKEN_END_OF_EXPRESSION) {
+			mat_err_set_format(MAT_PARSER_UNEXPECTED_TOKEN, "unexpected token. expected=%s, actual=%s",
+			                   mat_tokenizer_name[MAT_TOKEN_END_OF_EXPRESSION],
+			                   mat_tokenizer_get_token_type_name(last_token_ty));
+			mat_expr_free(expr);
+			expr = NULL;
+		}
+	}
+	return expr;
 }
 
 void mat_parser_free(mat_parser_t* parser) {
