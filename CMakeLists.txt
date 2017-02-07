@@ -6,7 +6,7 @@ include_directories(src externals)
 
 add_library(matcore src/parser.c src/parser.h src/op.h src/expr.h src/config.inc.h
         src/tokenizer.c src/tokenizer.h src/error.h src/fwddecl.h src/logger.c src/logger.h src/error.c src/expr.c
-        src/op_hash.c src/op_hash.h src/world.c src/world.h)
+        src/op_hash.c src/op_hash.h src/world.c src/world.h src/op.c)
 add_library(matfunc src/fns/fns.h src/fns/fn_const.c src/fns/fn_variable.c
         src/fns/fn_plus.c src/fns/fn_common.c src/fns/fn_common.h src/fns/fn_times.c src/fns/fn_sin.c
         src/fns/fn_subtract.c src/fns/fn_divide.c src/fns/fn_cos.c src/fns/fn_exp.c src/fns/fn_log.c src/fns/fn_power.c)
@@ -18,3 +18,4 @@ add_executable(fn_test test/fns/fns_test.h test/fns/fns_test.c test/fns/fns_test
         test/fns/fn_plus_test.c test/fns/fn_power_test.c test/fns/fn_sin_test.c test/fns/fn_subtract_test.c
         test/fns/fn_times_test.c test/tokenizer_test.c test/cutest_util.h test/cutest_util.c)
 add_executable(tokenizer_test test/tokenizer_test.c)
+add_executable(paser_test test/parser_test.c)
