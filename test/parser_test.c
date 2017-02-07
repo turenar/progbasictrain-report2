@@ -31,8 +31,8 @@ static void check_parse_failure(CuTest* tc, mat_error_t err, const char* e) {
 	mat_world_t* w = mat_world_new();
 	mat_world_put_op(w, test_op.name, &test_op);
 	mat_parser_t* parser = mat_parser_new(w, e);
-	CuAssertPtrEquals(tc, NULL, mat_parser_parse(parser));
-	CuAssertIntEquals(tc, err, mat_err_get_id());
+	CuAssertPtrEquals_Msg(tc, e, NULL, mat_parser_parse(parser));
+	CuAssertIntEquals_Msg(tc, e, err, mat_err_get_id());
 	mat_parser_free(parser);
 	mat_world_free(w);
 }
@@ -42,12 +42,12 @@ static void check_value(CuTest* tc, mat_error_t err, double r, const char* e) {
 	mat_world_put_op(w, test_op.name, &test_op);
 	mat_parser_t* parser = mat_parser_new(w, e);
 	mat_expr_t* expr = mat_parser_parse(parser);
-	CuAssertPtrNotNull(tc, expr);
+	CuAssertPtrNotNullMsg(tc, e, expr);
 	mpq_t res;
 	mpq_init(res);
-	CuAssertIntEquals(tc, err, mat_op_calc_value(expr, res));
+	CuAssertIntEquals_Msg(tc, e, err, mat_op_calc_value(expr, res));
 	if (!err) {
-		CuAssertDblEquals(tc, r, mpq_get_d(res), 0.00001);
+		CuAssertDblEquals_Msg(tc, e, r, mpq_get_d(res), 0.00001);
 	}
 	mpq_clear(res);
 	mat_expr_free(expr);
