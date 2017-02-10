@@ -14,7 +14,7 @@
  */
 
 
-void test_common_arguments_bifunc(CuTest* tc, mat_op_def_t* op_def) {
+void test_common_arguments_bifunc(CuTest* tc, const mat_op_def_t* op_def) {
 	mat_world_t* world = mat_world_new();
 	mat_world_put_op(world, op_def->name, op_def);
 	test_common_assert_parse_failure(tc, world, "%s[]", op_def->name);
@@ -23,7 +23,7 @@ void test_common_arguments_bifunc(CuTest* tc, mat_op_def_t* op_def) {
 	mat_world_free(world);
 }
 
-void test_common_arguments_unifunc(CuTest* tc, mat_op_def_t* op_def) {
+void test_common_arguments_unifunc(CuTest* tc, const mat_op_def_t* op_def) {
 	mat_world_t* world = mat_world_new();
 	mat_world_put_op(world, op_def->name, op_def);
 	test_common_assert_parse_failure(tc, world, "%s[]", op_def->name);
@@ -31,7 +31,7 @@ void test_common_arguments_unifunc(CuTest* tc, mat_op_def_t* op_def) {
 	mat_world_free(world);
 }
 
-void test_common_value_bifunc(CuTest* tc, mat_op_def_t* op_def, bool zero_denied, double(* fn)(double, double)) {
+void test_common_value_bifunc(CuTest* tc, const mat_op_def_t* op_def, bool zero_denied, double(* fn)(double, double)) {
 	mat_world_t* world = mat_world_new();
 	mat_world_put_op(world, op_def->name, op_def);
 #define CHECK_VALUE2(a, b) test_common_assert_value(tc, world, fn(a, b), "%s[%f,%f]", op_def->name, (double)a, (double)b);
@@ -49,7 +49,7 @@ void test_common_value_bifunc(CuTest* tc, mat_op_def_t* op_def, bool zero_denied
 	mat_world_free(world);
 }
 
-void test_common_value_unifunc(CuTest* tc, mat_op_def_t* op_def, bool zero_denied, double(* fn)(double)) {
+void test_common_value_unifunc(CuTest* tc, const mat_op_def_t* op_def, bool zero_denied, double(* fn)(double)) {
 	mat_world_t* world = mat_world_new();
 	mat_world_put_op(world, op_def->name, op_def);
 #define CHECK_VALUE1(a) test_common_assert_value(tc, world, fn(a), "%s[%f]", op_def->name, (double)a);
@@ -89,7 +89,7 @@ void test_common_assert_value(CuTest* tc, mat_world_t* w, double ex, const char*
 	mat_parser_t* parser = mat_parser_new(w, buf);
 	mat_expr_t* expr = mat_parser_parse(parser);
 	CuAssertPtrNotNullMsg(tc, buf, expr);
-	mpq_t t = {0};
+	mpq_t t;
 	mpq_init(t);
 	mat_error_t err = mat_op_calc_value(expr, t);
 	CuAssertIntEquals_Msg(tc, buf, MAT_SUCCESS, err);
@@ -120,7 +120,7 @@ mat_error_t check_expr_error(CuTest* tc, mat_world_t* w, const char* fmt, ...) {
 	vsprintf(buf, fmt, ap);
 	va_end(ap);
 
-	mat_expr_t* expr = parse_expression(tc, w, buf);
+	mat_expr_t* expr = parse_expression(tc, w, "%s", buf);
 
 	mpq_t r;
 	mpq_init(r);

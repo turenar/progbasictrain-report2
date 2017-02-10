@@ -21,10 +21,10 @@ void mat_world_free(mat_world_t* w) {
 	free(w);
 }
 
-void mat_world_put_op(mat_world_t* w, const char* name, mat_op_def_t* def) {
+void mat_world_put_op(mat_world_t* w, const char* name, const mat_op_def_t* def) {
 	mat_op_hash_put(w->hash, name, def);
 }
 
-mat_op_def_t* mat_world_get_op(mat_world_t* w, const char* name) {
+const mat_op_def_t* mat_world_get_op(const mat_world_t* w, const char* name) {
 	return mat_op_hash_get(w->hash, name);
 }

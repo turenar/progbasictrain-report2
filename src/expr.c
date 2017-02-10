@@ -25,7 +25,7 @@ mat_expr_t* mat_expr_new_var(char c) {
 	return expr;
 }
 
-mat_expr_t* mat_expr_new_args(mat_op_id_t op, mat_op_def_t* op_def, unsigned int count, mat_expr_t** args_orig) {
+mat_expr_t* mat_expr_new_args(mat_op_id_t op, const mat_op_def_t* op_def, unsigned int count, mat_expr_t** args_orig) {
 	mat_expr_t* expr = (mat_expr_t*) malloc(sizeof(mat_expr_t));
 	mat_expr_t** args = (mat_expr_t**) malloc(sizeof(mat_expr_t*) * count);
 	memcpy(args, args_orig, sizeof(mat_expr_t*) * count);

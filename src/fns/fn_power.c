@@ -7,7 +7,7 @@
 static void show_expression(const mat_expr_t*);
 static mat_error_t calc_value(const mat_expr_t* expr, mpq_t out);
 
-mat_op_def_t mat_fn_power = {
+const mat_op_def_t mat_fn_power = {
 		"Power",
 		2, 2,
 		&show_expression,

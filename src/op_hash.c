@@ -8,7 +8,7 @@
 typedef struct mat_op_hash_node {
 	size_t hash;
 	const char* name;
-	mat_op_def_t* op_def;
+	const mat_op_def_t* op_def;
 	struct mat_op_hash_node* next;
 } mat_op_hash_node_t;
 
@@ -37,7 +37,7 @@ mat_op_hash_t* mat_op_hash_new() {
 	return ret;
 }
 
-void mat_op_hash_put(mat_op_hash_t* hash, const char* name, mat_op_def_t* def) {
+void mat_op_hash_put(mat_op_hash_t* hash, const char* name, const mat_op_def_t* def) {
 	size_t h = hash_str(name);
 	size_t index = index_for(h, hash->bucket_size);
 	mat_op_hash_node_t* next = hash->bucket[index];
@@ -59,7 +59,7 @@ void mat_op_hash_put(mat_op_hash_t* hash, const char* name, mat_op_def_t* def) {
 	}
 }
 
-mat_op_def_t* mat_op_hash_get(mat_op_hash_t* hash, const char* name) {
+const mat_op_def_t* mat_op_hash_get(mat_op_hash_t* hash, const char* name) {
 	size_t h = hash_str(name);
 	size_t index = index_for(h, hash->bucket_size);
 	for (mat_op_hash_node_t* n = hash->bucket[index]; n != NULL; n = n->next) {

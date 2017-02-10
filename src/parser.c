@@ -16,9 +16,6 @@ struct mat_parser {
 };
 typedef struct mat_parser mat_parser_t;
 
-static const size_t SHOW_ROW_LEN = 60u;
-
-
 static mat_expr_t* parse_expr(mat_parser_t*, mat_tokenizer_token_type_t);
 static mat_expr_t* parse_func(mat_parser_t*);
 static mat_expr_t* parse_var(mat_parser_t*);
@@ -95,7 +92,7 @@ static mat_expr_t* parse_func(mat_parser_t* parser) {
 	mat_tokenizer_token_type_t next_token_type;
 
 	const char* func_name = mat_tokenizer_get_token(parser->tokenizer);
-	mat_op_def_t* op_def = mat_world_get_op(parser->world, func_name);
+	const mat_op_def_t* op_def = mat_world_get_op(parser->world, func_name);
 	if (op_def == NULL) {
 		mat_err_set_format(MAT_UNKNOWN_FUNC, "unknown function: %s", func_name);
 		goto free_func_name;

@@ -7,7 +7,7 @@ static void show_expression(const mat_expr_t*);
 static mat_error_t calc_value(const mat_expr_t* expr, mpq_t out);
 static mat_error_t checker(const mpq_t a, const mpq_t b);
 
-mat_op_def_t mat_fn_divide = {
+const mat_op_def_t mat_fn_divide = {
 		"Divide",
 		2, 2,
 		&show_expression,

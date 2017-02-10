@@ -8,7 +8,7 @@
 static void show_expression(const mat_expr_t*);
 static mat_error_t calc_value(const mat_expr_t* expr, mpq_t out);
 
-mat_op_def_t mat_fn_const = {
+const mat_op_def_t mat_fn_const = {
 		"__const",
 		0, 0,
 		&show_expression,
