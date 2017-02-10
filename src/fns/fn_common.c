@@ -2,7 +2,7 @@
 
 #include "fn_common.h"
 #include <stdio.h>
-#include "assert.h"
+#include <assert.h>
 #include "fns.h"
 #include "../expr.h"
 #include "../op.h"
