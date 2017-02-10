@@ -1,0 +1,8 @@
+check 0 'Sin[0]'
+check -0.7071067 'Sin[Divide[-3.1415926, 4]]'
+check 1 'Sin[Divide[3.1415926, 2]]'
+check 0 'Sin[-3.1415926]'
+check 0 'Sin[Times[3.1415926, 2]]'
+check 0.8414709 'Sin[1]'
+xfail _call 'Sin[]'
+xfail _call 'Sin[1,2]'

@@ -1,0 +1,8 @@
+check 1 'Cos[0]'
+check 0.7071067 'Cos[Divide[-3.1415926, 4]]'
+check 0 'Cos[Divide[3.1415926, 2]]'
+check -1 'Cos[-3.1415926]'
+check 1 'Cos[Times[3.1415926, 2]]'
+check 0.5403023 'Cos[1]'
+xfail _call 'Cos[]'
+xfail _call 'Cos[1,2]'

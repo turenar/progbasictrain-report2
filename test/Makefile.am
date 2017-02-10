@@ -13,8 +13,8 @@ AM_TESTS_ENVIRONMENT+= \
 	srcdir=$(srcdir); \
 	export EXEEXT srcdir;
 
-TESTS = fns_test tokenizer_test parser_test
-check_PROGRAMS = fns_test tokenizer_test parser_test
+TESTS = fns_test tokenizer_test parser_test treeize_test.sh
+check_PROGRAMS = fns_test tokenizer_test parser_test check_double
 check_LTLIBRARIES = libtest_common.la
 common_ldadd = ../src/libmatcore.la \
 			   ../src/libmatfunc.la \
@@ -42,3 +42,6 @@ tokenizer_test_LDADD = libtest_common.la
 
 parser_test_SOURCES = parser_test.c
 parser_test_LDADD = libtest_common.la
+
+check_double_SOURCES = check_double.c
+check_double_LDADD = libtest_common.la

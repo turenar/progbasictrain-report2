@@ -19,3 +19,4 @@ add_executable(fn_test test/fns/fns_test.h test/fns/fns_test.c test/fns/fns_test
         test/fns/fn_times_test.c test/tokenizer_test.c test/cutest_util.h test/cutest_util.c)
 add_executable(tokenizer_test test/tokenizer_test.c)
 add_executable(paser_test test/parser_test.c)
+add_executable(check_double test/check_double.c)

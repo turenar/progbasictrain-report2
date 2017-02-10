@@ -1,0 +1,7 @@
+check 1 'Subtract[2,1]'
+check 2 'Subtract[2,0]'
+check 0 'Subtract[-1,-1]'
+check -0.4 'Subtract[-1.1,-0.7]'
+xfail _call 'Subtract[]'
+xfail _call 'Subtract[1]'
+xfail _call 'Subtract[1,2,3]'

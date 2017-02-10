@@ -1,0 +1,7 @@
+check 12 'Times[2,6]'
+check 12 'Times[3.0,4.0]'
+check -8 'Times[2,-4]'
+check 0 'Times[5,0]'
+xfail _call 'Times[]'
+xfail _call 'Times[1]'
+xfail _call 'Times[1,2,3]'
