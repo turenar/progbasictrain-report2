@@ -55,7 +55,7 @@ static void test_tokenizer_get_row_str(CuTest* tc) {
 	const char* expr = "Plus\n"
 			"[ Times\t[ \n"
 			"Sin [ 13.4 ]\n"
-			" , 3 ] , x ]\n";
+			" , 3 ] , x ]\r\n";
 	mat_tokenizer_t* t = mat_tokenizer_new(expr);
 
 	CuAssertStrEquals(tc, expr, mat_tokenizer_get_row_str(t));
