@@ -27,5 +27,5 @@ static mat_expr_t* make_differential(const mat_expr_t* expr) {
 	mat_expr_t* arg = expr->value.expr.args[0];
 	return mat_fn_common_multiply(
 			mat_op_make_differential(arg),
-			mat_expr_new_from(arg));
+			mat_expr_new_from(expr));
 }
