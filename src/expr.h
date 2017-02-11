@@ -3,7 +3,11 @@
 #include <gmp.h>
 #include "fwddecl.h"
 
-typedef int mat_op_id_t;
+typedef enum mat_op_id {
+	MAT_OP_CONSTANT,
+	MAT_OP_VARIABLE,
+	MAT_OP_FUNCTION
+} mat_op_id_t;
 
 struct mat_expr;
 typedef struct mat_expr mat_expr_t;
@@ -26,12 +30,8 @@ struct mat_expr {
 };
 
 
-extern const mat_op_id_t MAT_OP_CONSTANT;
-extern const mat_op_id_t MAT_OP_VARIABLE;
-
-
 mat_expr_t* mat_expr_new_const(mpq_t);
 mat_expr_t* mat_expr_new_var(char);
-mat_expr_t* mat_expr_new_args(mat_op_id_t, const mat_op_def_t*, unsigned int count, mat_expr_t**);
+mat_expr_t* mat_expr_new_args(const mat_op_def_t*, unsigned int count, mat_expr_t**);
 
 void mat_expr_free(mat_expr_t*);
