@@ -141,3 +141,78 @@ void mat_fn_put_stdfunc(mat_world_t* w) {
 	PUT_OP(mat_fn_power);
 #undef PUT_OP
 }
+
+mat_expr_t* mat_fn_common_add(mat_expr_t* a, mat_expr_t* b) {
+	if (a->op_id == MAT_OP_CONSTANT && b->op_id == MAT_OP_CONSTANT) {
+		mpq_t result;
+		mpq_init(result);
+		mpq_add(result, a->value.constant, b->value.constant);
+		mat_expr_t* ret = mat_expr_new_const(result);
+		mpq_clear(result);
+		mat_expr_free(a);
+		mat_expr_free(b);
+		return ret;
+	} else {
+		return mat_expr_new_bi_args(&mat_fn_plus, a, b);
+	}
+}
+
+mat_expr_t* mat_fn_common_subtract(mat_expr_t* a, mat_expr_t* b) {
+	if (a->op_id == MAT_OP_CONSTANT && b->op_id == MAT_OP_CONSTANT) {
+		mpq_t result;
+		mpq_init(result);
+		mpq_sub(result, a->value.constant, b->value.constant);
+		mat_expr_t* ret = mat_expr_new_const(result);
+		mpq_clear(result);
+		mat_expr_free(a);
+		mat_expr_free(b);
+		return ret;
+	} else {
+		return mat_expr_new_bi_args(&mat_fn_subtract, a, b);
+	}
+}
+
+mat_expr_t* mat_fn_common_multiply(mat_expr_t* a, mat_expr_t* b) {
+	if (a->op_id == MAT_OP_CONSTANT) {
+		if (b->op_id == MAT_OP_CONSTANT) {
+			mpq_t result;
+			mpq_init(result);
+			mpq_mul(result, a->value.constant, b->value.constant);
+			mat_expr_t* ret = mat_expr_new_const(result);
+			mpq_clear(result);
+			mat_expr_free(a);
+			mat_expr_free(b);
+			return ret;
+		} else if (mpq_sgn(a->value.constant) == 0) {
+			mat_expr_free(b);
+			return a; // 0*b = 0
+		} else if (mpq_cmp_si(a->value.constant, 1, 1) == 0) {
+			mat_expr_free(a);
+			return b; // 1*b = b
+		}
+	} else if (b->op_id == MAT_OP_CONSTANT) {
+		if (mpq_sgn(b->value.constant) == 0) {
+			mat_expr_free(a);
+			return b; // a*0 = 0
+		} else if (mpq_cmp_si(b->value.constant, 1, 1) == 0) {
+			mat_expr_free(b);
+			return a; // a*1 = a
+		}
+	}
+	return mat_expr_new_bi_args(&mat_fn_times, a, b);
+}
+
+mat_expr_t* mat_fn_common_divide(mat_expr_t* a, mat_expr_t* b) {
+	if (a->op_id == MAT_OP_CONSTANT && b->op_id == MAT_OP_CONSTANT) {
+		mpq_t result;
+		mpq_init(result);
+		mpq_div(result, a->value.constant, b->value.constant);
+		mat_expr_t* ret = mat_expr_new_const(result);
+		mpq_clear(result);
+		mat_expr_free(a);
+		mat_expr_free(b);
+		return ret;
+	} else {
+		return mat_expr_new_bi_args(&mat_fn_divide, a, b);
+	}
+}

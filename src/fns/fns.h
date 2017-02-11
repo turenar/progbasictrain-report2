@@ -1,5 +1,6 @@
 #pragma once
 
+#include "../expr.h"
 #include "../fwddecl.h"
 #include "../op.h"
 

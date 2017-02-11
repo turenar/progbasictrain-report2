@@ -13,7 +13,7 @@ static mat_error_t calc_value(const mat_expr_t*, mpq_t);
 static mat_op_def_t test_op = {
 		"Test",
 		1, 2,
-		&mat_fn_common_show_expression, &calc_value
+		&mat_fn_common_show_expression, &calc_value, NULL
 };
 
 static mat_error_t calc_value(const mat_expr_t* expr, mpq_t r) {

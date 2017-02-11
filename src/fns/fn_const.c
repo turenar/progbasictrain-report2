@@ -2,17 +2,17 @@
 
 #include <stdio.h>
 #include "fns.h"
-#include "../expr.h"
-#include "../op.h"
 
 static void show_expression(const mat_expr_t*);
 static mat_error_t calc_value(const mat_expr_t* expr, mpq_t out);
+static mat_expr_t* make_differential(const mat_expr_t*);
 
 const mat_op_def_t mat_fn_const = {
 		"__const",
 		0, 0,
 		&show_expression,
-		&calc_value
+		&calc_value,
+		&make_differential
 };
 
 static void show_expression(const mat_expr_t* expr) {
@@ -23,4 +23,13 @@ static void show_expression(const mat_expr_t* expr) {
 static mat_error_t calc_value(const mat_expr_t* expr, mpq_t out) {
 	mpq_set(out, expr->value.constant);
 	return MAT_SUCCESS;
+}
+
+static mat_expr_t* make_differential(const mat_expr_t* expr) {
+	UNUSED_VAR(expr);
+	mpq_t c;
+	mpq_init(c);
+	mat_expr_t* e = mat_expr_new_const(c);
+	mpq_clear(c);
+	return e;
 }

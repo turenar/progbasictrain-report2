@@ -31,7 +31,11 @@ struct mat_expr {
 
 
 mat_expr_t* mat_expr_new_const(mpq_t);
+mat_expr_t* mat_expr_new_const_double(double);
 mat_expr_t* mat_expr_new_var(char);
 mat_expr_t* mat_expr_new_args(const mat_op_def_t*, unsigned int count, mat_expr_t**);
+mat_expr_t* mat_expr_new_uni_arg(const mat_op_def_t* op_def, mat_expr_t* args_orig);
+mat_expr_t* mat_expr_new_bi_args(const mat_op_def_t* op_def, mat_expr_t* a, mat_expr_t* b);
+mat_expr_t* mat_expr_new_from(const mat_expr_t*);
 
 void mat_expr_free(mat_expr_t*);

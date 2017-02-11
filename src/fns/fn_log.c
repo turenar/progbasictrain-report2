@@ -6,12 +6,14 @@
 static void show_expression(const mat_expr_t*);
 static mat_error_t calc_value(const mat_expr_t* expr, mpq_t out);
 static mat_error_t checker(const mpq_t a);
+static mat_expr_t* make_differential(const mat_expr_t*);
 
 const mat_op_def_t mat_fn_log = {
 		"Log",
 		1, 1,
 		&show_expression,
-		&calc_value
+		&calc_value,
+		&make_differential
 };
 
 static void show_expression(const mat_expr_t* expr) {
@@ -29,4 +31,11 @@ static mat_error_t checker(const mpq_t a) {
 	} else {
 		return MAT_SUCCESS;
 	}
+}
+
+static mat_expr_t* make_differential(const mat_expr_t* expr) {
+	mat_expr_t* arg = expr->value.expr.args[0];
+	return mat_fn_common_divide(
+			mat_op_make_differential(arg),
+			mat_expr_new_from(arg));
 }
