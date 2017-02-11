@@ -42,7 +42,7 @@ static mat_expr_t* make_differential(const mat_expr_t* expr) {
 									mat_expr_new_from(x),
 									mat_fn_common_subtract(
 											mat_expr_new_from(y),
-											mat_expr_new_const_double(-1)))),
+											mat_expr_new_const_double(1)))),
 					mat_fn_common_multiply(
 							mat_fn_common_multiply(
 									mat_op_make_differential(y),
