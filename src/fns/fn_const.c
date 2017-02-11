@@ -17,7 +17,7 @@ const mat_op_def_t mat_fn_const = {
 
 static void show_expression(const mat_expr_t* expr) {
 	double d = mpq_get_d(expr->value.constant);
-	printf("%f", d);
+	printf("%g", d);
 }
 
 static mat_error_t calc_value(const mat_expr_t* expr, mpq_t out) {
