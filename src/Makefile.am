@@ -1,5 +1,5 @@
 AM_CFLAGS = $(warn_flags)
-bin_PROGRAMS = treeize
+bin_PROGRAMS = treeize differential
 lib_LTLIBRARIES = libmatcore.la libmatfunc.la
 
 libmatcore_la_SOURCES = error.c \
@@ -29,3 +29,6 @@ libmatfunc_la_LDFLAGS = -version-info $(mat_so_version)
 treeize_SOURCES = treeize_main.c
 treeize_LDADD = libmatcore.la libmatfunc.la
 treeize_LDFLAGS = -static
+differential_SOURCES = differential_main.c
+differential_LDADD = libmatcore.la libmatfunc.la
+differential_LDFLAGS = -static
