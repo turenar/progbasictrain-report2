@@ -28,12 +28,24 @@ int main(int argc, char** argv) {
 	}
 
 	mat_expr_t* differential;
+	mat_expr_t* simplified;
 	differential = mat_op_make_differential(e);
-	mat_op_show_expression(differential);
+	if (!differential) {
+		exitcode = 1;
+		goto free_parser;
+	}
+	simplified = mat_op_simplify(differential);
+	if (!simplified) {
+		exitcode = 1;
+		goto free_diff;
+	}
+	mat_op_show_expression(simplified);
 	printf("\n");
 
 	exitcode = 0;
 
+	mat_expr_free(simplified);
+free_diff:
 	mat_expr_free(differential);
 	mat_expr_free(e);
 free_parser:

@@ -8,13 +8,15 @@
 static void show_expression(const mat_expr_t*);
 static mat_error_t calc_value(const mat_expr_t* expr, mpq_t out);
 static mat_expr_t* make_differential(const mat_expr_t*);
+static mat_expr_t* simplify(const mat_expr_t*);
 
 const mat_op_def_t mat_fn_power = {
 		"Power",
 		2, 2,
 		&show_expression,
 		&calc_value,
-		&make_differential
+		&make_differential,
+		&simplify
 };
 
 static void show_expression(const mat_expr_t* expr) {
@@ -50,4 +52,26 @@ static mat_expr_t* make_differential(const mat_expr_t* expr) {
 											&mat_fn_log,
 											mat_expr_new_from(x))),
 							mat_expr_new_from(expr)));
+}
+
+static mat_expr_t* simplify(const mat_expr_t* expr) {
+	mat_expr_t** args = expr->value.expr.args;
+	mat_expr_t* a = mat_op_simplify(args[0]);
+	mat_expr_t* b = mat_op_simplify(args[1]);
+	if (mat_expr_is_const(b)) {
+		if (mat_expr_is_const(a) && mpq_sgn(a->value.constant) == 0 && mpq_sgn(b->value.constant) != 0) {
+			mat_expr_free(a);
+			mat_expr_free(b);
+			return mat_expr_new_const_double(0);
+		} else if (mpq_sgn(b->value.constant) == 0) {
+			// 厳密にはa!=0である必要があるが、x^0 = 1としたい
+			mat_expr_free(a);
+			mat_expr_free(b);
+			return mat_expr_new_const_double(1);
+		} else if (mpq_cmp_ui(b->value.constant, 1, 1) == 0) {
+			mat_expr_free(b);
+			return a;
+		}
+	}
+	return mat_expr_new_bi_args(&mat_fn_power, a, b);
 }
