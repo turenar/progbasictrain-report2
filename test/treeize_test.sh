@@ -47,7 +47,7 @@ outdir=general_filter.test.tmp
 test -d "${outdir}" && rm -rf "${outdir}"
 mkdir "${outdir}"
 
-for i in "${srcdir:-.}/shtest"/*_*.sh; do
+for i in "${srcdir:-.}/treeize_tests"/*_*.sh; do
 	printf "\e[1;32mtesting %s...\e[0m\n" "$(basename "$i")"
 	source "$i"
 done
