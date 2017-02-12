@@ -1,6 +1,7 @@
 #pragma once
 
 #include <gmp.h>
+#include <stdbool.h>
 #include "fwddecl.h"
 
 typedef enum mat_op_id {
@@ -39,3 +40,7 @@ mat_expr_t* mat_expr_new_bi_args(const mat_op_def_t* op_def, mat_expr_t* a, mat_
 mat_expr_t* mat_expr_new_from(const mat_expr_t*);
 
 void mat_expr_free(mat_expr_t*);
+
+bool mat_expr_is_const(const mat_expr_t* expr);
+bool mat_expr_is_variable(const mat_expr_t* expr);
+bool mat_expr_is_function(const mat_expr_t* expr);

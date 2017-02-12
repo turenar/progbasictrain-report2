@@ -87,3 +87,15 @@ void mat_expr_free(mat_expr_t* expr) {
 	}
 	free(expr);
 }
+
+bool mat_expr_is_const(const mat_expr_t* expr) {
+	return expr->op_id == MAT_OP_CONSTANT;
+}
+
+bool mat_expr_is_variable(const mat_expr_t* expr) {
+	return expr->op_id == MAT_OP_VARIABLE;
+}
+
+bool mat_expr_is_function(const mat_expr_t* expr) {
+	return expr->op_id == MAT_OP_FUNCTION;
+}
