@@ -27,7 +27,8 @@ int main(int argc, char** argv) {
 		goto free_parser;
 	}
 
-	mat_expr_t* differential = mat_op_make_differential(e);
+	mat_expr_t* differential;
+	differential = mat_op_make_differential(e);
 	mat_op_show_expression(differential);
 	printf("\n");
 
