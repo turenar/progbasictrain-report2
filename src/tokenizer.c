@@ -66,11 +66,11 @@ mat_tokenizer_token_type_t mat_tokenizer_next(mat_tokenizer_t* tokenizer) {
 			tokenizer->token_end = p;
 			type = MAT_TOKEN_VARIABLE;
 		}
-	} else if (c == '+' || c == '-' || is_numeric(c)) {
+	} else if (c == '-' || is_numeric(c)) {
 		for (; is_numeric(*p); ++p) {
 			// skip numeric chars
 		}
-		if ((c == '+' || c == '-') && start + 1 == p) {
+		if (c == '-' && start + 1 == p) {
 			type = MAT_TOKEN_UNKNOWN;
 			goto error;
 		}
