@@ -1,10 +1,11 @@
 AM_CFLAGS = $(warn_flags)
-bin_PROGRAMS = treeize differential
+bin_PROGRAMS = treeize differential extreme_value
 lib_LTLIBRARIES = libmatcore.la libmatfunc.la
 
 libmatcore_la_SOURCES = error.c \
 						expr.c \
 						tokenizer.c \
+						newton.c \
 						op.c \
 						op_hash.c \
 						parser.c \
@@ -32,3 +33,6 @@ treeize_LDFLAGS = -static
 differential_SOURCES = differential_main.c
 differential_LDADD = libmatcore.la libmatfunc.la
 differential_LDFLAGS = -static
+extreme_value_SOURCES = extreme_value_main.c
+extreme_value_LDADD = libmatcore.la libmatfunc.la
+extreme_value_LDFLAGS = -static

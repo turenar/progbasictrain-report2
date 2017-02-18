@@ -43,6 +43,9 @@ const mat_op_def_t* mat_world_get_op(const mat_world_t* w, const char* name) {
 }
 
 void mat_world_put_variable(mat_world_t* w, mat_variable_name_t variable_name, mat_expr_t* e) {
+	if (w->var_values[variable_name]) {
+		mat_expr_free(w->var_values[variable_name]);
+	}
 	w->var_values[variable_name] = e;
 }
 
