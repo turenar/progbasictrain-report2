@@ -1,6 +1,5 @@
 #pragma once
 
-#include "error.h"
 #include "fwddecl.h"
 
 mat_world_t* mat_world_new() __attribute_malloc__;

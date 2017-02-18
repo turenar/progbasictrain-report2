@@ -19,3 +19,6 @@ typedef struct mat_op_hash mat_op_hash_t;
 
 struct mat_world;
 typedef struct mat_world mat_world_t;
+
+struct mat_error_info;
+typedef struct mat_error_info mat_error_info_t;
