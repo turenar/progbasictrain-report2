@@ -6,3 +6,5 @@ xfail _call x --define
 xfail _call x --define hoge
 xfail _call x --define x
 xfail _call x --define x=
+xfail _call x --define ==0
+xfail _call x --define ,=0
