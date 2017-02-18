@@ -53,11 +53,11 @@ void mat_parser_free(mat_parser_t* parser) {
 	}
 }
 
-void mat_parser_describe_error_position(mat_parser_t* parser) {
+void mat_parser_describe_error_position(mat_parser_t* parser, const char* filename) {
 	const char* error_msg = mat_err_get(mat_world_get_error_info(parser->world));
 	size_t row_pos = mat_tokenizer_get_row(parser->tokenizer);
 	size_t col_pos = mat_tokenizer_get_col(parser->tokenizer);
-	printf("<input>:%zu:%zu: \033[1;31mError\033[0m: %s\n", row_pos, col_pos, error_msg);
+	printf("%s:%zu:%zu: \033[1;31mError\033[0m: %s\n", filename, row_pos, col_pos, error_msg);
 
 	const char* row = mat_tokenizer_get_row_str(parser->tokenizer);
 	size_t row_len = get_row_len(row);

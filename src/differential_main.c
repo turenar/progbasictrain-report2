@@ -22,7 +22,7 @@ int main(int argc, char** argv) {
 	mat_parser_t* parser = mat_parser_new(world, expr);
 	mat_expr_t* e = mat_parser_parse(parser);
 	if (!e) {
-		mat_parser_describe_error_position(parser);
+		mat_parser_describe_error_position(parser, NULL);
 		exitcode = 1;
 		goto free_parser;
 	}
