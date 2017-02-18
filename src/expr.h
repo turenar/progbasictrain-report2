@@ -31,7 +31,7 @@ struct mat_expr {
 };
 
 
-mat_expr_t* mat_expr_new_const(mpq_t);
+mat_expr_t* mat_expr_new_const(const mpq_t);
 mat_expr_t* mat_expr_new_const_int(int);
 mat_expr_t* mat_expr_new_var(mat_variable_name_t);
 mat_expr_t* mat_expr_new_args(const mat_op_def_t*, unsigned int count, mat_expr_t**);

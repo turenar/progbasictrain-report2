@@ -6,7 +6,7 @@
 #include <string.h>
 #include "fns/fns.h"
 
-mat_expr_t* mat_expr_new_const(mpq_t constant) {
+mat_expr_t* mat_expr_new_const(const mpq_t constant) {
 	mat_expr_t* expr = (mat_expr_t*) malloc(sizeof(mat_expr_t));
 	expr->op_id = MAT_OP_CONSTANT;
 	expr->op_def = &mat_fn_const;
