@@ -4,6 +4,7 @@
 #include "fns.h"
 #include "../expr.h"
 #include "../op.h"
+#include "../world.h"
 
 static void show_expression(mat_world_t* w, const mat_expr_t*);
 static mat_error_t calc_value(mat_world_t* w, const mat_expr_t* expr, mpq_t out);
@@ -25,10 +26,12 @@ static void show_expression(mat_world_t* w, const mat_expr_t* expr) {
 }
 
 static mat_error_t calc_value(mat_world_t* w, const mat_expr_t* expr, mpq_t out) {
-	UNUSED_VAR(w);
-	UNUSED_VAR(expr);
-	UNUSED_VAR(out);
-	return MAT_HAVE_VARIABLE;
+	mat_expr_t* saved_variable = mat_world_get_variable(w, expr->value.var);
+	if (saved_variable) {
+		return mat_op_calc_value(w, saved_variable, out);
+	} else {
+		return MAT_HAVE_VARIABLE;
+	}
 }
 
 static mat_expr_t* make_differential(mat_world_t* w, const mat_expr_t* expr) {
