@@ -24,13 +24,6 @@ function _call() {
 	../src/${EXE_NAME}${EXEEXT} "$@"
 }
 
-function check() {
-	local expected="$1"
-	local actual="$(_pass _call "$2")"
-	test $? -eq 0 || _die
-	_pass ./check_double "${expected}" "${actual}"
-}
-
 function xfail() {
 	printf "\e[35m# xfail: %s\e[0m\n" "$*">&2
 	"$@" && _die

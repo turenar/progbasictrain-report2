@@ -1,0 +1,5 @@
+check 0 'Log[Exp[1]]'
+# check 'Divide[Exp[x], Exp[x]]' 'Log[Exp[x]]'
+check 'Divide[1, x]' 'Log[x]'
+check 'Divide[2, Times[2, x]]' 'Log[Times[2, x]]'
+check 'Divide[Times[2, x], Power[x, 2]]' 'Log[Power[x, 2]]'

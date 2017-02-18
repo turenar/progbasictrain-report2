@@ -1,0 +1,5 @@
+check 0 'Exp[0]'
+check 0 'Exp[-1]'
+check 'Exp[x]' 'Exp[x]'
+check 'Times[Exp[x], Exp[Exp[x]]]' 'Exp[Exp[x]]'
+check 'Times[Times[4, Power[x, 3]], Exp[Power[x, 4]]]' 'Exp[Power[x, 4]]'

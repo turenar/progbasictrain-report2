@@ -13,7 +13,7 @@ AM_TESTS_ENVIRONMENT+= \
 	srcdir=$(srcdir); \
 	export EXEEXT srcdir;
 
-TESTS = fns_test tokenizer_test parser_test treeize_test.sh
+TESTS = fns_test tokenizer_test parser_test treeize_test.sh differential_test.sh
 check_PROGRAMS = fns_test tokenizer_test parser_test check_double
 check_LTLIBRARIES = libtest_common.la
 common_ldadd = ../src/libmatcore.la \

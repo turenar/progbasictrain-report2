@@ -1,0 +1,6 @@
+check '0' 'Divide[1,2]'
+check '1' 'Divide[x,1]'
+check 'Times[2, x]' 'Divide[Power[x,2], 1]'
+check '0.75' 'Divide[Times[3, x], 4]'
+check '6' 'Divide[Times[2,x],Divide[1,3]]'
+check 'Divide[-1, Times[x, x]]' 'Divide[1,x]'
