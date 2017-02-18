@@ -56,11 +56,10 @@ int main(int argc, char** argv) {
 		goto free_world;
 	}
 
-	const char* expr = argv[optind];
-//	printf("expression:\t%s\n", expr);
-
-	mat_parser_t* parser = mat_parser_new(world, expr);
-	mat_expr_t* e = mat_parser_parse(parser);
+	mat_parser_t* parser;
+	mat_expr_t* e;
+	parser = mat_parser_new(world, argv[optind]);
+	e = mat_parser_parse(parser);
 	if (!e) {
 		mat_parser_describe_error_position(parser, "<input>");
 		exitcode = 1;
