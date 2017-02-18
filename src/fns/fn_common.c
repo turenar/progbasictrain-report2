@@ -232,7 +232,7 @@ mat_expr_t* mat_fn_common_divide(mat_expr_t* a, mat_expr_t* b) {
 			// 0/b is not always 0 (if b==0, undetermined), but should be 0?
 			mat_expr_free(a);
 			mat_expr_free(b);
-			return mat_expr_new_const_double(0);
+			return mat_expr_new_const_int(0);
 		}
 	} else if (mat_expr_is_const(b)) {
 		if (mpq_cmp_si(b->value.constant, 1, 1) == 0) {

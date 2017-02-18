@@ -15,10 +15,10 @@ mat_expr_t* mat_expr_new_const(mpq_t constant) {
 	return expr;
 }
 
-mat_expr_t* mat_expr_new_const_double(double d) {
+mat_expr_t* mat_expr_new_const_int(int i) {
 	mpq_t r;
 	mpq_init(r);
-	mpq_set_d(r, d);
+	mpq_set_si(r, i, 1);
 	mat_expr_t* ret = mat_expr_new_const(r);
 	mpq_clear(r);
 	return ret;

@@ -44,7 +44,7 @@ static mat_expr_t* make_differential(const mat_expr_t* expr) {
 									mat_expr_new_from(x),
 									mat_fn_common_subtract(
 											mat_expr_new_from(y),
-											mat_expr_new_const_double(1)))),
+											mat_expr_new_const_int(1)))),
 					mat_fn_common_multiply(
 							mat_fn_common_multiply(
 									mat_op_make_differential(y),
@@ -62,12 +62,12 @@ static mat_expr_t* simplify(const mat_expr_t* expr) {
 		if (mat_expr_is_const(a) && mpq_sgn(a->value.constant) == 0 && mpq_sgn(b->value.constant) != 0) {
 			mat_expr_free(a);
 			mat_expr_free(b);
-			return mat_expr_new_const_double(0);
+			return mat_expr_new_const_int(0);
 		} else if (mpq_sgn(b->value.constant) == 0) {
 			// 厳密にはa!=0である必要があるが、x^0 = 1としたい
 			mat_expr_free(a);
 			mat_expr_free(b);
-			return mat_expr_new_const_double(1);
+			return mat_expr_new_const_int(1);
 		} else if (mpq_cmp_ui(b->value.constant, 1, 1) == 0) {
 			mat_expr_free(b);
 			return a;

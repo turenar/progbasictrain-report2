@@ -46,7 +46,7 @@ static mat_expr_t* simplify(const mat_expr_t* expr) {
 	mat_expr_t* arg = mat_op_simplify(expr->value.expr.args[0]);
 	if (mat_expr_is_const(arg) && mpq_cmp_ui(arg->value.constant, 1, 1) == 0) {
 		mat_expr_free(arg);
-		return mat_expr_new_const_double(0);
+		return mat_expr_new_const_int(0);
 	} else {
 		return mat_expr_new_uni_arg(&mat_fn_log, arg);
 	}

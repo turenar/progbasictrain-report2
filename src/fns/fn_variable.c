@@ -31,7 +31,7 @@ static mat_error_t calc_value(const mat_expr_t* expr, mpq_t out) {
 
 static mat_expr_t* make_differential(const mat_expr_t* expr) {
 	if (expr->value.var == 'x') {
-		return mat_expr_new_const_double(1);
+		return mat_expr_new_const_int(1);
 	} else {
 		return mat_expr_new_from(expr);
 	}
