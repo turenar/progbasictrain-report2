@@ -19,9 +19,11 @@ mat_world_t* mat_world_new() {
 }
 
 void mat_world_free(mat_world_t* w) {
-	mat_op_hash_free(w->hash);
-	mat_err_clear(&w->err);
-	free(w);
+	if (w) {
+		mat_op_hash_free(w->hash);
+		mat_err_clear(&w->err);
+		free(w);
+	}
 }
 
 void mat_world_put_op(mat_world_t* w, const char* name, const mat_op_def_t* def) {

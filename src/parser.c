@@ -47,8 +47,10 @@ mat_expr_t* mat_parser_parse(mat_parser_t* parser) {
 }
 
 void mat_parser_free(mat_parser_t* parser) {
-	mat_tokenizer_free(parser->tokenizer);
-	free(parser);
+	if (parser) {
+		mat_tokenizer_free(parser->tokenizer);
+		free(parser);
+	}
 }
 
 void mat_parser_describe_error_position(mat_parser_t* parser) {

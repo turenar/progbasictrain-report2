@@ -71,6 +71,9 @@ const mat_op_def_t* mat_op_hash_get(mat_op_hash_t* hash, const char* name) {
 }
 
 void mat_op_hash_free(mat_op_hash_t* hash) {
+	if (!hash) {
+		return;
+	}
 	for (size_t i = 0; i < hash->bucket_size; ++i) {
 		for (mat_op_hash_node_t* n = hash->bucket[i]; n != NULL;) {
 			mat_op_hash_node_t* next = n->next;

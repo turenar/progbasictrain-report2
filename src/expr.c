@@ -76,6 +76,9 @@ mat_expr_t* mat_expr_new_from(const mat_expr_t* orig) {
 
 
 void mat_expr_free(mat_expr_t* expr) {
+	if(!expr){
+		return;
+	}
 	if (expr->op_id == MAT_OP_CONSTANT || expr->op_id == 0) {
 		mpq_clear(expr->value.constant);
 	} else if (expr->op_id == MAT_OP_FUNCTION) {

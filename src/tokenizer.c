@@ -46,7 +46,9 @@ mat_tokenizer_t* mat_tokenizer_new(const char* str) {
 }
 
 void mat_tokenizer_free(mat_tokenizer_t* tokenizer) {
-	free(tokenizer);
+	if (tokenizer) {
+		free(tokenizer);
+	}
 }
 
 mat_tokenizer_token_type_t mat_tokenizer_next(mat_tokenizer_t* tokenizer) {
