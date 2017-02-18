@@ -163,7 +163,7 @@ mat_expr_t* mat_fn_common_add(mat_expr_t* a, mat_expr_t* b) {
 			return a; // a+0 = a
 		}
 	}
-	return mat_expr_new_bi_args(&mat_fn_times, a, b);
+	return mat_expr_new_bi_args(&mat_fn_plus, a, b);
 }
 
 mat_expr_t* mat_fn_common_subtract(mat_expr_t* a, mat_expr_t* b) {
@@ -184,7 +184,7 @@ mat_expr_t* mat_fn_common_subtract(mat_expr_t* a, mat_expr_t* b) {
 			return a; // a-0 = a
 		}
 	}
-	return mat_expr_new_bi_args(&mat_fn_times, a, b);
+	return mat_expr_new_bi_args(&mat_fn_subtract, a, b);
 }
 
 mat_expr_t* mat_fn_common_multiply(mat_expr_t* a, mat_expr_t* b) {
@@ -234,5 +234,5 @@ mat_expr_t* mat_fn_common_divide(mat_expr_t* a, mat_expr_t* b) {
 			return a; // a/1 = a
 		}
 	}
-	return mat_expr_new_bi_args(&mat_fn_times, a, b);
+	return mat_expr_new_bi_args(&mat_fn_divide, a, b);
 }
