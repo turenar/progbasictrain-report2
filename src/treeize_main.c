@@ -36,6 +36,7 @@ int main(int argc, char** argv) {
 			case 'D': {
 				mat_expr_t* declared = parse_declare(world, program_name, optarg);
 				if (!declared) {
+					show_help(program_name);
 					exitcode = 1;
 					goto free_world;
 				}
