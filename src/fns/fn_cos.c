@@ -4,10 +4,10 @@
 #include "fn_common.h"
 #include "fns.h"
 
-static void show_expression(const mat_expr_t*);
-static mat_error_t calc_value(const mat_expr_t* expr, mpq_t out);
-static mat_expr_t* make_differential(const mat_expr_t*);
-static mat_expr_t* simplify(const mat_expr_t*);
+static void show_expression(mat_world_t* w, const mat_expr_t*);
+static mat_error_t calc_value(mat_world_t* w, const mat_expr_t* expr, mpq_t out);
+static mat_expr_t* make_differential(mat_world_t* w, const mat_expr_t*);
+static mat_expr_t* simplify(mat_world_t* w, const mat_expr_t*);
 
 const mat_op_def_t mat_fn_cos = {
 		"Cos",
@@ -18,22 +18,23 @@ const mat_op_def_t mat_fn_cos = {
 		&simplify
 };
 
-static void show_expression(const mat_expr_t* expr) {
-	mat_fn_common_show_expression(expr);
+static void show_expression(mat_world_t* w, const mat_expr_t* expr) {
+	mat_fn_common_show_expression(w, expr);
 }
 
-static mat_error_t calc_value(const mat_expr_t* expr, mpq_t result) {
-	return mat_fn_common_apply_mpfr_function(expr, result, NULL, &mpfr_cos);
+static mat_error_t calc_value(mat_world_t* w, const mat_expr_t* expr, mpq_t result) {
+	return mat_fn_common_apply_mpfr_function(w, expr, result, NULL, &mpfr_cos);
 }
 
-static mat_expr_t* make_differential(const mat_expr_t* expr) {
-	mat_expr_t* a = mat_op_make_differential(expr->value.expr.args[0]);
+static mat_expr_t* make_differential(mat_world_t* w, const mat_expr_t* expr) {
+	mat_expr_t* a = mat_op_make_differential(w, expr->value.expr.args[0]);
 	mat_expr_t* minus = mat_expr_new_const_int(-1);
 	mat_expr_t* b = mat_expr_new_from(expr);
 	b->op_def = &mat_fn_sin;
 	return mat_fn_common_multiply(mat_fn_common_multiply(minus, a), b);
 }
 
-static mat_expr_t* simplify(const mat_expr_t* expr) {
+static mat_expr_t* simplify(mat_world_t* w, const mat_expr_t* expr) {
+	UNUSED_VAR(w);
 	return mat_expr_new_from(expr);
 }

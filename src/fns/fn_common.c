@@ -8,7 +8,7 @@
 #include "../op.h"
 #include "../world.h"
 
-void mat_fn_common_show_expression(const mat_expr_t* expr) {
+void mat_fn_common_show_expression(mat_world_t* w, const mat_expr_t* expr) {
 	assert(expr->op_id >= 0);
 
 	printf("%s[", expr->op_def->name);
@@ -18,23 +18,24 @@ void mat_fn_common_show_expression(const mat_expr_t* expr) {
 			printf(", ");
 		}
 		mat_expr_t* arg = op_expr.args[i];
-		mat_op_show_expression(arg);
+		mat_op_show_expression(w, arg);
 	}
 	printf("]");
 }
 
-mat_error_t mat_fn_common_apply_bifunction(const mat_expr_t* expr, mpq_t out, mat_bifunc_checker chk, mpq_bifunc fn) {
+mat_error_t mat_fn_common_apply_bifunction(mat_world_t* w, const mat_expr_t* expr, mpq_t out,
+                                           mat_bifunc_checker chk, mpq_bifunc fn) {
 	mat_expr_t** args = expr->value.expr.args;
 	mpq_t a;
 	mpq_t b;
 	mpq_init(a);
 	mpq_init(b);
-	mat_op_calc_value(args[0], a);
-	mat_op_calc_value(args[1], b);
+	mat_op_calc_value(w, args[0], a);
+	mat_op_calc_value(w, args[1], b);
 
 	mat_error_t t;
 	if (chk) {
-		t = chk(a, b);
+		t = chk(w, a, b);
 		if (t) {
 			goto clean_up;
 		}
@@ -49,15 +50,16 @@ clean_up:
 	return t;
 }
 
-mat_error_t mat_fn_common_apply_mpfr_function(const mat_expr_t* expr, mpq_t out, mat_func_checker chk, mpfr_func fn) {
+mat_error_t mat_fn_common_apply_mpfr_function(mat_world_t* w, const mat_expr_t* expr, mpq_t out,
+                                              mat_func_checker chk, mpfr_func fn) {
 	mat_expr_t** args = expr->value.expr.args;
 	mpq_t arg;
 	mpq_init(arg);
-	mat_op_calc_value(args[0], arg);
+	mat_op_calc_value(w, args[0], arg);
 
 	mat_error_t t;
 	if (chk) {
-		t = chk(arg);
+		t = chk(w, arg);
 		if (t) {
 			goto clean_up;
 		}
@@ -84,19 +86,19 @@ clean_up:
 	return t;
 }
 
-mat_error_t
-mat_fn_common_apply_mpfr_bifunction(const mat_expr_t* expr, mpq_t out, mat_bifunc_checker chk, mpfr_bifunc fn) {
+mat_error_t mat_fn_common_apply_mpfr_bifunction(mat_world_t* w, const mat_expr_t* expr, mpq_t out,
+                                                mat_bifunc_checker chk, mpfr_bifunc fn) {
 	mat_expr_t** args = expr->value.expr.args;
 	mpq_t a_q;
 	mpq_t b_q;
 	mpq_init(a_q);
 	mpq_init(b_q);
-	mat_op_calc_value(args[0], a_q);
-	mat_op_calc_value(args[1], b_q);
+	mat_op_calc_value(w, args[0], a_q);
+	mat_op_calc_value(w, args[1], b_q);
 
 	mat_error_t t;
 	if (chk) {
-		t = chk(a_q, b_q);
+		t = chk(w, a_q, b_q);
 		if (t) {
 			goto clean_up;
 		}

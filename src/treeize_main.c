@@ -32,7 +32,7 @@ int main(int argc, char** argv) {
 
 	mpq_t result;
 	mpq_init(result);
-	if (mat_op_calc_value(e, result)) {
+	if (mat_op_calc_value(world, e, result)) {
 		exitcode = 1;
 		goto free_result;
 	}

@@ -29,17 +29,17 @@ int main(int argc, char** argv) {
 
 	mat_expr_t* differential;
 	mat_expr_t* simplified;
-	differential = mat_op_make_differential(e);
+	differential = mat_op_make_differential(world, e);
 	if (!differential) {
 		exitcode = 1;
 		goto free_parser;
 	}
-	simplified = mat_op_simplify(differential);
+	simplified = mat_op_simplify(world, differential);
 	if (!simplified) {
 		exitcode = 1;
 		goto free_diff;
 	}
-	mat_op_show_expression(simplified);
+	mat_op_show_expression(world, simplified);
 	printf("\n");
 
 	exitcode = 0;

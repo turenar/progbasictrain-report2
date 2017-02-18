@@ -8,7 +8,7 @@
 #include "world.h"
 #include "fns/fn_common.h"
 
-static mat_error_t calc_value(const mat_expr_t*, mpq_t);
+static mat_error_t calc_value(mat_world_t*, const mat_expr_t*, mpq_t);
 
 static mat_op_def_t test_op = {
 		"Test",
@@ -16,11 +16,11 @@ static mat_op_def_t test_op = {
 		&mat_fn_common_show_expression, &calc_value, NULL, NULL
 };
 
-static mat_error_t calc_value(const mat_expr_t* expr, mpq_t r) {
+static mat_error_t calc_value(mat_world_t* w, const mat_expr_t* expr, mpq_t r) {
 	mat_expr_t* arg = expr->value.expr.args[0];
 	mpq_t a, b;
 	mpq_inits(a, b, NULL);
-	mat_error_t err = mat_op_calc_value(arg, a);
+	mat_error_t err = mat_op_calc_value(w, arg, a);
 	mpq_set_ui(b, 1, 1);
 	mpq_add(r, a, b);
 	mpq_clears(a, b, NULL);
@@ -45,7 +45,7 @@ static void check_value(CuTest* tc, mat_error_t err, double r, const char* e) {
 	CuAssertPtrNotNullMsg(tc, e, expr);
 	mpq_t res;
 	mpq_init(res);
-	CuAssertIntEquals_Msg(tc, e, err, mat_op_calc_value(expr, res));
+	CuAssertIntEquals_Msg(tc, e, err, mat_op_calc_value(w, expr, res));
 	if (!err) {
 		CuAssertDblEquals_Msg(tc, e, r, mpq_get_d(res), 0.00001);
 	}
