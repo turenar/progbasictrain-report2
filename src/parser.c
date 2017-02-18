@@ -167,7 +167,7 @@ free_func_name:
 
 static mat_expr_t* parse_var(mat_parser_t* parser) {
 	const char* buf = mat_tokenizer_get_token(parser->tokenizer);
-	return mat_expr_new_var(buf[0]);
+	return mat_expr_new_var((mat_variable_name_t) buf[0]);
 }
 
 static mat_expr_t* parse_literal(mat_parser_t* parser) {

@@ -1,5 +1,7 @@
 #pragma once
 
+typedef unsigned char mat_variable_name_t;
+
 struct mat_parser;
 typedef struct mat_parser mat_parser_t;
 

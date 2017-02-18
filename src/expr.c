@@ -24,7 +24,7 @@ mat_expr_t* mat_expr_new_const_int(int i) {
 	return ret;
 }
 
-mat_expr_t* mat_expr_new_var(char c) {
+mat_expr_t* mat_expr_new_var(mat_variable_name_t c) {
 	mat_expr_t* expr = (mat_expr_t*) malloc(sizeof(mat_expr_t));
 	expr->op_id = MAT_OP_VARIABLE;
 	expr->op_def = &mat_fn_variable;
