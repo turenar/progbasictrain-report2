@@ -6,45 +6,48 @@
 #include <stdlib.h>
 
 
-static mat_error_t error_id = MAT_SUCCESS;
-static char* error_msg = NULL;
-
 static char* format_with_allocation(const char* fmt, va_list ap);
 
-void mat_err_set_format(mat_error_t errid, const char* fmt, ...) {
+void mat_err_init(mat_error_info_t* e) {
+	e->error_id = MAT_SUCCESS;
+	e->error_msg = NULL;
+}
+
+void mat_err_set_format(mat_error_info_t* e, mat_error_t errid, const char* fmt, ...) {
 	va_list ap;
 	va_start(ap, fmt);
 	char* msg = format_with_allocation(fmt, ap);
 	va_end(ap);
-	if (error_msg) {
-		free(error_msg);
+	if (e->error_msg) {
+		free(e->error_msg);
 	}
 	if (msg) {
-		error_id = errid;
-		error_msg = msg;
+		e->error_id = errid;
+		e->error_msg = msg;
 	} else {
-		error_id = MAT_FAILURE;
-		error_msg = NULL;
+		e->error_id = MAT_FAILURE;
+		e->error_msg = NULL;
 	}
 }
 
-void mat_err_clear() {
-	error_msg = NULL;
-	error_id = MAT_SUCCESS;
+void mat_err_clear(mat_error_info_t* e) {
+	free(e->error_msg);
+	e->error_msg = NULL;
+	e->error_id = MAT_SUCCESS;
 }
 
-const char* mat_err_get() {
-	if (error_id == MAT_SUCCESS) {
+const char* mat_err_get(mat_error_info_t* e) {
+	if (e->error_id == MAT_SUCCESS) {
 		return NULL;
-	} else if (error_msg == NULL) {
+	} else if (e->error_msg == NULL) {
 		return "unknown error";
 	} else {
-		return error_msg;
+		return e->error_msg;
 	}
 }
 
-mat_error_t mat_err_get_id() {
-	return error_id;
+mat_error_t mat_err_get_id(mat_error_info_t* e) {
+	return e->error_id;
 }
 
 static char* format_with_allocation(const char* fmt, va_list ap) {

@@ -35,7 +35,8 @@ mat_expr_t* mat_parser_parse(mat_parser_t* parser) {
 	if (expr) {
 		mat_tokenizer_token_type_t last_token_ty = mat_tokenizer_next(parser->tokenizer);
 		if (last_token_ty != MAT_TOKEN_END_OF_EXPRESSION) {
-			mat_err_set_format(MAT_PARSER_UNEXPECTED_TOKEN, "unexpected token. expected=%s, actual=%s",
+			mat_err_set_format(mat_world_get_error_info(parser->world),
+			                   MAT_PARSER_UNEXPECTED_TOKEN, "unexpected token. expected=%s, actual=%s",
 			                   mat_tokenizer_name[MAT_TOKEN_END_OF_EXPRESSION],
 			                   mat_tokenizer_get_token_type_name(last_token_ty));
 			mat_expr_free(expr);
@@ -51,7 +52,7 @@ void mat_parser_free(mat_parser_t* parser) {
 }
 
 void mat_parser_describe_error_position(mat_parser_t* parser) {
-	const char* error_msg = mat_err_get();
+	const char* error_msg = mat_err_get(mat_world_get_error_info(parser->world));
 	size_t row_pos = mat_tokenizer_get_row(parser->tokenizer);
 	size_t col_pos = mat_tokenizer_get_col(parser->tokenizer);
 	printf("<input>:%zu:%zu: \033[1;31mError\033[0m: %s\n", row_pos, col_pos, error_msg);
@@ -81,7 +82,8 @@ static mat_expr_t* parse_expr(mat_parser_t* parser, mat_tokenizer_token_type_t t
 	} else if (t == MAT_TOKEN_LITERAL) {
 		return parse_literal(parser);
 	} else {
-		mat_err_set_format(MAT_PARSER_UNEXPECTED_TOKEN, "unexpected token. expected=%s|%s|%s, actual=%s",
+		mat_err_set_format(mat_world_get_error_info(parser->world), MAT_PARSER_UNEXPECTED_TOKEN,
+		                   "unexpected token. expected=%s|%s|%s, actual=%s",
 		                   mat_tokenizer_name[MAT_TOKEN_FUNC_NAME], mat_tokenizer_name[MAT_TOKEN_VARIABLE],
 		                   mat_tokenizer_name[MAT_TOKEN_LITERAL], mat_tokenizer_get_token_type_name(t));
 		return NULL;
@@ -94,13 +96,15 @@ static mat_expr_t* parse_func(mat_parser_t* parser) {
 	const char* func_name = mat_tokenizer_get_token(parser->tokenizer);
 	const mat_op_def_t* op_def = mat_world_get_op(parser->world, func_name);
 	if (op_def == NULL) {
-		mat_err_set_format(MAT_UNKNOWN_FUNC, "unknown function: %s", func_name);
+		mat_err_set_format(mat_world_get_error_info(parser->world),
+		                   MAT_UNKNOWN_FUNC, "unknown function: %s", func_name);
 		goto free_func_name;
 	}
 
 	next_token_type = mat_tokenizer_next(parser->tokenizer);
 	if (next_token_type != MAT_TOKEN_FUNC_OPENING_BRACKET) {
-		mat_err_set_format(MAT_PARSER_UNEXPECTED_TOKEN, "unexpected token. expected=%s, actual=%s",
+		mat_err_set_format(mat_world_get_error_info(parser->world),
+		                   MAT_PARSER_UNEXPECTED_TOKEN, "unexpected token. expected=%s, actual=%s",
 		                   mat_tokenizer_name[MAT_TOKEN_FUNC_OPENING_BRACKET],
 		                   mat_tokenizer_get_token_type_name(next_token_type));
 		goto free_func_name;
@@ -125,7 +129,8 @@ static mat_expr_t* parse_func(mat_parser_t* parser) {
 			} else if (next_token_type == MAT_TOKEN_FUNC_ARG_SEPARATOR) {
 				next_token_type = mat_tokenizer_next(parser->tokenizer);
 			} else {
-				mat_err_set_format(MAT_PARSER_UNEXPECTED_TOKEN, "unexpected token. expected=%s|%s, actual=%s",
+				mat_err_set_format(mat_world_get_error_info(parser->world),
+				                   MAT_PARSER_UNEXPECTED_TOKEN, "unexpected token. expected=%s|%s, actual=%s",
 				                   mat_tokenizer_name[MAT_TOKEN_FUNC_CLOSING_BRACKET],
 				                   mat_tokenizer_name[MAT_TOKEN_FUNC_ARG_SEPARATOR],
 				                   mat_tokenizer_get_token_type_name(next_token_type));
@@ -136,10 +141,12 @@ static mat_expr_t* parse_func(mat_parser_t* parser) {
 
 	if (arg_count < op_def->min_args || op_def->max_args < arg_count) {
 		if (op_def->min_args == op_def->max_args) {
-			mat_err_set_format(MAT_ARG_COUNT_MISMATCH, "%s takes %u arguments, but %u were given",
+			mat_err_set_format(mat_world_get_error_info(parser->world),
+			                   MAT_ARG_COUNT_MISMATCH, "%s takes %u arguments, but %u were given",
 			                   op_def->name, op_def->min_args, arg_count);
 		} else {
-			mat_err_set_format(MAT_ARG_COUNT_MISMATCH, "%s takes %u-%u arguments, but %u were given",
+			mat_err_set_format(mat_world_get_error_info(parser->world),
+			                   MAT_ARG_COUNT_MISMATCH, "%s takes %u-%u arguments, but %u were given",
 			                   op_def->name, op_def->min_args, op_def->max_args, arg_count);
 		}
 		goto free_args;

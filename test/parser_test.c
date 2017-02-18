@@ -32,7 +32,7 @@ static void check_parse_failure(CuTest* tc, mat_error_t err, const char* e) {
 	mat_world_put_op(w, test_op.name, &test_op);
 	mat_parser_t* parser = mat_parser_new(w, e);
 	CuAssertPtrEquals_Msg(tc, e, NULL, mat_parser_parse(parser));
-	CuAssertIntEquals_Msg(tc, e, err, mat_err_get_id());
+	CuAssertIntEquals_Msg(tc, e, err, mat_err_get_id(mat_world_get_error_info(w)));
 	mat_parser_free(parser);
 	mat_world_free(w);
 }

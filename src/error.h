@@ -16,7 +16,13 @@ typedef enum mat_error {
 	MAT_ARITHMETIC_ERROR
 } mat_error_t;
 
-void mat_err_set_format(mat_error_t, const char*, ...) __attribute_format__(printf, 2, 3);
-void mat_err_clear();
-const char* mat_err_get();
-mat_error_t mat_err_get_id();
+typedef struct mat_error_info {
+	mat_error_t error_id;
+	char* error_msg;
+} mat_error_info_t;
+
+void mat_err_init(mat_error_info_t*);
+void mat_err_set_format(mat_error_info_t*, mat_error_t, const char*, ...) __attribute_format__(printf, 3, 4);
+void mat_err_clear(mat_error_info_t*);
+const char* mat_err_get(mat_error_info_t*);
+mat_error_t mat_err_get_id(mat_error_info_t*);
