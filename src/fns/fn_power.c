@@ -1,9 +1,9 @@
 #include "config.inc.h"
 
+#include <stdlib.h>
 #include "fn_common.h"
 #include "fns.h"
 #include "../expr.h"
-#include <stdlib.h>
 
 static void show_expression(mat_world_t* w, const mat_expr_t*);
 static mat_error_t calc_value(mat_world_t* w, const mat_expr_t* expr, mpq_t out);
