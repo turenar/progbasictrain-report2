@@ -218,16 +218,22 @@ mat_expr_t* mat_fn_common_multiply(mat_expr_t* a, mat_expr_t* b) {
 }
 
 mat_expr_t* mat_fn_common_divide(mat_expr_t* a, mat_expr_t* b) {
-	if (mat_expr_is_const(a) && mat_expr_is_const(b)) {
-		mpq_t result;
-		mpq_init(result);
-		mpq_div(result, a->value.constant, b->value.constant);
-		mat_expr_t* ret = mat_expr_new_const(result);
-		mpq_clear(result);
-		mat_expr_free(a);
-		mat_expr_free(b);
-		return ret;
-		// 0/b is not always 0 (if b==0, undetermined)
+	if (mat_expr_is_const(a)) {
+		if (mat_expr_is_const(b)) {
+			mpq_t result;
+			mpq_init(result);
+			mpq_div(result, a->value.constant, b->value.constant);
+			mat_expr_t* ret = mat_expr_new_const(result);
+			mpq_clear(result);
+			mat_expr_free(a);
+			mat_expr_free(b);
+			return ret;
+		} else if (mpq_sgn(a->value.constant) == 0) {
+			// 0/b is not always 0 (if b==0, undetermined), but should be 0?
+			mat_expr_free(a);
+			mat_expr_free(b);
+			return mat_expr_new_const_double(0);
+		}
 	} else if (mat_expr_is_const(b)) {
 		if (mpq_cmp_si(b->value.constant, 1, 1) == 0) {
 			mat_expr_free(b);
