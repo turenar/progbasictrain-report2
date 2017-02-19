@@ -1,10 +1,10 @@
 #include "config.inc.h"
 
 #include "newton.h"
-#include "op.h"
 #include "expr.h"
-#include "world.h"
 #include "logger.h"
+#include "op.h"
+#include "world.h"
 
 
 #define USE_DOUBLE_AS_PRECISION_LIMIT 1

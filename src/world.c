@@ -1,9 +1,9 @@
 #include "config.inc.h"
 
 #include "world.h"
+#include <limits.h>
 #include <stdlib.h>
 #include <string.h>
-#include <limits.h>
 #include "expr.h"
 #include "op.h"
 #include "op_hash.h"

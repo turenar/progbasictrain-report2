@@ -6,8 +6,8 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include "expr.h"
-#include "parser.h"
 #include "newton.h"
+#include "parser.h"
 #include "world.h"
 #include "fns/fns.h"
 
