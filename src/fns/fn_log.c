@@ -29,9 +29,8 @@ static mat_error_t calc_value(mat_world_t* w, const mat_expr_t* expr, mpq_t resu
 
 static mat_error_t checker(mat_world_t* w, const mpq_t a) {
 	if (mpq_sgn(a) <= 0) {
-		mat_err_set_format(mat_world_get_error_info(w), MAT_ARITHMETIC_ERROR, "Log[x] cannot be x<=0 but %f",
+		return mat_err_set_format(mat_world_get_error_info(w), MAT_ARITHMETIC_ERROR, "Log[x] cannot be x<=0 but %f",
 		                   mpq_get_d(a));
-		return MAT_ARITHMETIC_ERROR;
 	} else {
 		return MAT_SUCCESS;
 	}

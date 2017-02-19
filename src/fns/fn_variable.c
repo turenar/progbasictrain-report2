@@ -30,7 +30,8 @@ static mat_error_t calc_value(mat_world_t* w, const mat_expr_t* expr, mpq_t out)
 	if (saved_variable) {
 		return mat_op_calc_value(w, saved_variable, out);
 	} else {
-		return MAT_HAVE_VARIABLE;
+		return mat_err_set_format(mat_world_get_error_info(w), MAT_HAVE_VARIABLE,
+		                          "expression has unresolved variable `%c'", expr->value.var);
 	}
 }
 

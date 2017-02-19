@@ -30,10 +30,12 @@ mat_error_t mat_fn_common_apply_bifunction(mat_world_t* w, const mat_expr_t* exp
 	mpq_t b;
 	mpq_init(a);
 	mpq_init(b);
-	mat_op_calc_value(w, args[0], a);
-	mat_op_calc_value(w, args[1], b);
-
 	mat_error_t t;
+	t = mat_op_calc_value(w, args[0], a);
+	if (t) { goto clean_up; }
+	t = mat_op_calc_value(w, args[1], b);
+	if (t) { goto clean_up; }
+
 	if (chk) {
 		t = chk(w, a, b);
 		if (t) {
@@ -55,9 +57,11 @@ mat_error_t mat_fn_common_apply_mpfr_function(mat_world_t* w, const mat_expr_t* 
 	mat_expr_t** args = expr->value.expr.args;
 	mpq_t arg;
 	mpq_init(arg);
-	mat_op_calc_value(w, args[0], arg);
 
 	mat_error_t t;
+	t = mat_op_calc_value(w, args[0], arg);
+	if (t) { goto clean_up; }
+
 	if (chk) {
 		t = chk(w, arg);
 		if (t) {
@@ -93,10 +97,14 @@ mat_error_t mat_fn_common_apply_mpfr_bifunction(mat_world_t* w, const mat_expr_t
 	mpq_t b_q;
 	mpq_init(a_q);
 	mpq_init(b_q);
-	mat_op_calc_value(w, args[0], a_q);
-	mat_op_calc_value(w, args[1], b_q);
 
 	mat_error_t t;
+
+	t = mat_op_calc_value(w, args[0], a_q);
+	if (t) { goto clean_up; }
+	t = mat_op_calc_value(w, args[1], b_q);
+	if (t) { goto clean_up; }
+
 	if (chk) {
 		t = chk(w, a_q, b_q);
 		if (t) {

@@ -2,6 +2,8 @@
 
 #include "fn_common.h"
 #include "fns.h"
+#include "../world.h"
+
 
 static void show_expression(mat_world_t* w, const mat_expr_t*);
 static mat_error_t calc_value(mat_world_t* w, const mat_expr_t* expr, mpq_t out);
@@ -30,7 +32,7 @@ static mat_error_t checker(mat_world_t* w, const mpq_t a, const mpq_t b) {
 	UNUSED_VAR(w);
 	UNUSED_VAR(a);
 	if (mpq_sgn(b) == 0) {
-		return MAT_DIVIDED_BY_ZERO;
+		return mat_err_set(mat_world_get_error_info(w), MAT_DIVIDED_BY_ZERO);
 	} else {
 		return MAT_SUCCESS;
 	}
