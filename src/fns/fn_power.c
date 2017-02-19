@@ -29,9 +29,9 @@ static mat_expr_t* make_differential(mat_world_t* w, const mat_expr_t* expr) {
 
 	// y^x  ->  (y * x') * (x ^ (y-1)) + (y' * log x) * x^y
 	return
-			mat_fn_common_add(
-					mat_fn_common_multiply(
-							mat_fn_common_multiply(
+			mat_fn_common_plus(
+					mat_fn_common_times(
+							mat_fn_common_times(
 									mat_expr_new_from(y),
 									mat_op_make_differential(w, x)),
 							mat_expr_new_bi_args(
@@ -40,8 +40,8 @@ static mat_expr_t* make_differential(mat_world_t* w, const mat_expr_t* expr) {
 									mat_fn_common_subtract(
 											mat_expr_new_from(y),
 											mat_expr_new_const_int(1)))),
-					mat_fn_common_multiply(
-							mat_fn_common_multiply(
+					mat_fn_common_times(
+							mat_fn_common_times(
 									mat_op_make_differential(w, y),
 									mat_expr_new_uni_arg(
 											&mat_fn_log,

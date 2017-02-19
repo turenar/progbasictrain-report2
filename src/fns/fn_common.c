@@ -152,7 +152,7 @@ void mat_fn_put_stdfunc(mat_world_t* w) {
 #undef PUT_OP
 }
 
-mat_expr_t* mat_fn_common_add(mat_expr_t* a, mat_expr_t* b) {
+mat_expr_t* mat_fn_common_plus(mat_expr_t* a, mat_expr_t* b) {
 	if (mat_expr_is_const(a)) {
 		if (mat_expr_is_const(b)) {
 			mpq_t result;
@@ -197,7 +197,7 @@ mat_expr_t* mat_fn_common_subtract(mat_expr_t* a, mat_expr_t* b) {
 	return mat_expr_new_bi_args(&mat_fn_subtract, a, b);
 }
 
-mat_expr_t* mat_fn_common_multiply(mat_expr_t* a, mat_expr_t* b) {
+mat_expr_t* mat_fn_common_times(mat_expr_t* a, mat_expr_t* b) {
 	if (mat_expr_is_const(a)) {
 		if (mat_expr_is_const(b)) {
 			mpq_t result;

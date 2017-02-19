@@ -23,7 +23,7 @@ typedef int (* mpfr_bifunc)(mpfr_ptr, mpfr_srcptr, mpfr_srcptr, mpfr_rnd_t);
 mat_error_t mat_fn_common_apply_mpfr_bifunction(mat_world_t* w, const mat_expr_t*, mpq_t out,
                                                 mat_bifunc_checker, mpfr_bifunc);
 
-mat_expr_t* mat_fn_common_add(mat_expr_t*, mat_expr_t*);
+mat_expr_t* mat_fn_common_plus(mat_expr_t*, mat_expr_t*);
 mat_expr_t* mat_fn_common_subtract(mat_expr_t*, mat_expr_t*);
-mat_expr_t* mat_fn_common_multiply(mat_expr_t*, mat_expr_t*);
+mat_expr_t* mat_fn_common_times(mat_expr_t*, mat_expr_t*);
 mat_expr_t* mat_fn_common_divide(mat_expr_t*, mat_expr_t*);

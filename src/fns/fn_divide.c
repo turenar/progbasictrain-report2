@@ -38,9 +38,9 @@ static mat_expr_t* make_differential(mat_world_t* w, const mat_expr_t* expr) {
 	mat_expr_t* df = mat_op_make_differential(w, args[0]);
 	mat_expr_t* dg = mat_op_make_differential(w, args[1]);
 	mat_expr_t* dividend = mat_fn_common_subtract(
-			mat_fn_common_multiply(df, mat_expr_new_from(args[1])),
-			mat_fn_common_multiply(mat_expr_new_from(args[0]), dg));
-	mat_expr_t* divider = mat_fn_common_multiply(mat_expr_new_from(args[1]), mat_expr_new_from(args[1]));
+			mat_fn_common_times(df, mat_expr_new_from(args[1])),
+			mat_fn_common_times(mat_expr_new_from(args[0]), dg));
+	mat_expr_t* divider = mat_fn_common_times(mat_expr_new_from(args[1]), mat_expr_new_from(args[1]));
 	return mat_fn_common_divide(dividend, divider);
 }
 
