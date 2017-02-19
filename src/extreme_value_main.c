@@ -271,7 +271,7 @@ static bool set_rational(const char* str, mpq_t target) {
 	mpf_init(tmp);
 	if (mpf_set_str(tmp, str, 10)) {
 		fprintf(stderr, "fatal: illegal number: %s\n", str);
-		mpq_clear(target);
+		mpq_clear(tmp);
 		return false;
 	} else {
 		mpq_set_f(target, tmp);
