@@ -10,7 +10,7 @@
 #include "fns/fns.h"
 
 static void show_help(const char* program_name);
-static mat_expr_t* parse_declare(mat_world_t*, const char* program_name, const char* expr_str);
+static mat_expr_t* parse_declare(mat_world_t*, const char* expr_str);
 
 int main(int argc, char** argv) {
 	struct option longopts[] = {
@@ -35,9 +35,8 @@ int main(int argc, char** argv) {
 				exitcode = 0;
 				goto free_world;
 			case 'D': {
-				mat_expr_t* declared = parse_declare(world, program_name, optarg);
+				mat_expr_t* declared = parse_declare(world, optarg);
 				if (!declared) {
-					show_help(program_name);
 					exitcode = 1;
 					goto free_world;
 				}
@@ -51,8 +50,7 @@ int main(int argc, char** argv) {
 	}
 
 	if (optind + 1 != argc) {
-		fprintf(stderr, "%s: missing expression\n", program_name);
-		show_help(program_name);
+		fprintf(stderr, "fatal: missing expression\n");
 		exitcode = 1;
 		goto free_world;
 	}
@@ -73,6 +71,7 @@ int main(int argc, char** argv) {
 	mpq_t result;
 	mpq_init(result);
 	if (mat_op_calc_value(world, e, result)) {
+		fprintf(stderr, "error: %s\n", mat_err_get(mat_world_get_error_info(world)));
 		exitcode = 1;
 		goto free_result;
 	}
@@ -99,7 +98,7 @@ static void show_help(const char* program_name) {
 	fprintf(stderr, help, program_name);
 }
 
-static mat_expr_t* parse_declare(mat_world_t* world, const char* program_name, const char* expr_str) {
+static mat_expr_t* parse_declare(mat_world_t* world, const char* expr_str) {
 	if (isalpha(expr_str[0]) && expr_str[1] == '=') {
 		mat_parser_t* parser = mat_parser_new(world, expr_str + 2);
 		mat_expr_t* e = mat_parser_parse(parser);
@@ -114,7 +113,7 @@ static mat_expr_t* parse_declare(mat_world_t* world, const char* program_name, c
 			mat_parser_free(parser);
 		}
 	} else {
-		fprintf(stderr, "%s: wrong syntax passed to --variable\n", program_name);
+		fprintf(stderr, "fatal: wrong syntax passed to --variable\n");
 	}
 	return NULL;
 }
