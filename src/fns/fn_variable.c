@@ -39,8 +39,12 @@ static mat_expr_t* make_differential(mat_world_t* w, const mat_expr_t* expr) {
 	UNUSED_VAR(w);
 	if (expr->value.var == 'x') {
 		return mat_expr_new_const_int(1);
+	}
+	mat_expr_t* var_expr = mat_world_get_variable(w, expr->value.var);
+	if (var_expr) {
+		return mat_op_make_differential(w, var_expr);
 	} else {
-		return mat_expr_new_from(expr);
+		return mat_expr_new_const_int(0);
 	}
 }
 
