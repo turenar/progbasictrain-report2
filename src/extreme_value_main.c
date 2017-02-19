@@ -1,5 +1,6 @@
 #include "config.inc.h"
 
+#include <ctype.h>
 #include <getopt.h>
 #include <gmp.h>
 #include <stdio.h>
