@@ -38,6 +38,7 @@ void mpq_abs(mpq_ptr a, mpq_srcptr b);
 void mpq_add(mpq_ptr a, mpq_srcptr b, mpq_srcptr c);
 void mpq_sub(mpq_ptr a, mpq_srcptr b, mpq_srcptr c);
 void mpq_mul(mpq_ptr a, mpq_srcptr b, mpq_srcptr c);
+void mpq_mul_2exp(mpq_ptr a, mpq_srcptr b, mp_bitcnt_t c);
 void mpq_div(mpq_ptr a, mpq_srcptr b, mpq_srcptr c);
 
 void mpf_clear(mpf_ptr);

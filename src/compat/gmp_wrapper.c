@@ -109,6 +109,11 @@ void mpq_mul(mpq_ptr a, mpq_srcptr b, mpq_srcptr c) {
 	*a = *b * *c;
 }
 
+void mpq_mul_2exp(mpq_ptr a, mpq_srcptr b, mp_bitcnt_t c) {
+	mp_bitcnt_t m = 1u << c;
+	*a = *b * m;
+}
+
 void mpq_div(mpq_ptr a, mpq_srcptr b, mpq_srcptr c) {
 	*a = *b / *c;
 }

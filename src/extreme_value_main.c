@@ -31,6 +31,8 @@ static bool set_rational(const char* str, mpq_t target);
  */
 static bool fully_strtoui(const char* arg_name, const char*, int*);
 
+int is_local_extreme(mat_world_t* w, const mat_expr_t* df, const mpq_t x, const mpq_t epsilon);
+
 int main(int argc, char** argv) {
 	struct option longopts[] = {
 			{"help",      no_argument,       NULL, 'h'},
@@ -181,7 +183,17 @@ int main(int argc, char** argv) {
 		goto free_d2f_value;
 	}
 
-	printf("局所%s値: %f (x=%f)\n", (mpq_sgn(d2f_value) < 0 ? "最大" : "最小"), mpq_get_d(f_value), mpq_get_d(extreme_x));
+	int is_extreme = is_local_extreme(world, df, extreme_x, param.epsilon);
+	if (is_extreme < 0) {
+		// error
+		exitcode = 1;
+		goto free_d2f_value;
+	} else if (is_extreme) {
+		printf("局所%s値: %f (x=%f)\n", (mpq_sgn(d2f_value) < 0 ? "最大" : "最小"), mpq_get_d(f_value), mpq_get_d(extreme_x));
+	} else {
+		printf("%f (x=%f) は局所%s値ではないかもしれません (変曲点の可能性あり)\n", mpq_get_d(f_value),
+		       mpq_get_d(extreme_x), (mpq_sgn(d2f_value) < 0 ? "最大" : "最小"));
+	}
 	exitcode = 0;
 
 	// C++のRAIIを使いたかった。怒涛の解放劇
@@ -275,4 +287,33 @@ static bool fully_strtoui(const char* arg_name, const char* str, int* target) {
 		fprintf(stderr, "fatal: --%s requires positive number but `%s'\n", arg_name, str);
 	}
 	return success;
+}
+
+int is_local_extreme(mat_world_t* w, const mat_expr_t* df, const mpq_t x, const mpq_t epsilon) {
+	int ret;
+
+	mpq_t dx, a, b, df_a, df_b, multiplied;
+	mpq_inits(dx, a, b, df_a, df_b, multiplied, NULL);
+	mpq_mul_2exp(dx, epsilon, 4); // 16*epsilon
+	mpq_add(a, x, dx);
+	mpq_sub(b, x, dx);
+	mat_world_put_variable(w, 'x', mat_expr_new_const(a));
+	if (mat_op_calc_value(w, df, df_a)) {
+		goto error;
+	}
+	mat_world_put_variable(w, 'x', mat_expr_new_const(b));
+	if (mat_op_calc_value(w, df, df_b)) {
+		goto error;
+	}
+	mpq_mul(multiplied, df_a, df_b);
+
+	gmp_printf("%Qd %Qd\n", df_a, df_b);
+	ret = mpq_sgn(multiplied) < 0;
+	goto free_mpq;
+error:
+	fprintf(stderr, "error: %s\n", mat_err_get(mat_world_get_error_info(w)));
+	ret = -1;
+free_mpq:
+	mpq_clears(dx, a, b, df_a, df_b, multiplied, NULL);
+	return ret;
 }
