@@ -56,12 +56,49 @@ AX_CHECK_LINK_FLAG([-rdynamic], [AX_APPEND_FLAG([-rdynamic], [LDFLAGS])], [])
 
 # Checks for library functions.
 saved_LIBS="$LIBS"
-LIBS=
-AC_SEARCH_LIBS([__gmpz_init], [gmp], [], [AC_MSG_ERROR([GNU MP not found.])])
-gmp_LIBS="$LIBS"
-LIBS=
-AC_SEARCH_LIBS([mpfr_add], [mpfr], [], [AC_MSG_ERROR([mpfr not found.])])
-mpfr_LIBS="$LIBS"
+
+
+AC_ARG_ENABLE([gmp],
+	[AS_HELP_STRING(
+		[--disable-gmp],
+		[disable gmp, default: enabled])],
+	[case "${enableval}" in
+		yes) use_gmp=yes;;
+		no)  use_gmp=no;;
+		*)   AC_MSG_ERROR([bad value ${enableval} for --enable-gmp]);;
+	esac],
+	[use_gmp=auto])
+
+AC_MSG_CHECKING([whether gmp should be used])
+AC_MSG_RESULT([$use_gmp])
+if test "$use_gmp" = "no"; then
+	: # do nothing
+else
+	LIBS=
+	AC_SEARCH_LIBS([__gmpz_init], [gmp], [gmp_found=1], [gmp_found=0])
+	gmp_LIBS="$LIBS"
+	LIBS=
+	AC_SEARCH_LIBS([mpfr_add], [mpfr], [mpfr_found=1], [mpfr_found=0])
+	mpfr_LIBS="$LIBS"
+
+	if test "$gmp_found$mpfr_found" = 11; then
+		gmp_usable=yes
+	else
+		gmp_usable=no
+	fi
+
+	if test "$use_gmp$gmp_usable" = yesno; then
+		AC_MSG_ERROR([request gmp is not found!])
+	elif test "$use_gmp" = auto; then
+		use_gmp="$gmp_usable"
+	fi
+fi
+
+if test "$use_gmp" = yes; then
+	AC_DEFINE([USE_GMP], [1], [gmp should be used])
+fi
+
+
 LIBS=
 AC_SEARCH_LIBS([sqrt], [m], [], [AC_MSG_ERROR([sqrt() not found.])])
 math_LIBS="$LIBS"
@@ -111,9 +148,11 @@ AC_SUBST([warn_flags])
 AC_SUBST([gmp_LIBS])
 AC_SUBST([mpfr_LIBS])
 AC_SUBST([math_LIBS])
-AM_CONDITIONAL([cross_compiling], [test x$cross_compiling != xno])
+AM_CONDITIONAL([cross_compiling], [test x$build != x$host])
+AM_CONDITIONAL([USE_GMP], [test x$use_gmp = xyes])
 AC_CONFIG_FILES([Makefile externals/Makefile src/Makefile test/Makefile])
 AC_OUTPUT
 
 echo "------------------------------------"
 echo "CFLAGS:        $warn_flags $CFLAGS"
+echo "USE_GMP:       $use_gmp"
