@@ -78,7 +78,7 @@ mat_expr_t* mat_expr_new_from(const mat_expr_t* orig) {
 
 
 void mat_expr_free(mat_expr_t* expr) {
-	if(!expr){
+	if (!expr) {
 		return;
 	}
 	if (mat_expr_is_const(expr)) {

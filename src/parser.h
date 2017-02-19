@@ -6,7 +6,7 @@
  * @param expr 式文字列。invalid syntaxでもここではエラーにならない
  * @return 新しいインスタンス
  */
-mat_parser_t* mat_parser_new(mat_world_t*, const char* expr) ;
+mat_parser_t* mat_parser_new(mat_world_t*, const char* expr);
 void mat_parser_free(mat_parser_t*);
 
 /**

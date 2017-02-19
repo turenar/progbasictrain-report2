@@ -6,11 +6,11 @@
 
 typedef enum mat_op_id {
 	/** 定数。 mat_value_t.constant が使用できる */
-	MAT_OP_CONSTANT,
+			MAT_OP_CONSTANT,
 	/** 変数。 mat_value_t.var が使用できる */
-	MAT_OP_VARIABLE,
+			MAT_OP_VARIABLE,
 	/** 関数。 mat_value_t.func が使用できる */
-	MAT_OP_FUNCTION
+			MAT_OP_FUNCTION
 } mat_op_id_t;
 
 /**
@@ -97,6 +97,6 @@ void mat_expr_free(mat_expr_t*);
 /** @return 定数式であるかどうか */
 bool mat_expr_is_const(const mat_expr_t*);
 /** @return 変数式であるかどうか (変数式には変数を含む関数式を含まない) */
-bool mat_expr_is_variable(const mat_expr_t* );
+bool mat_expr_is_variable(const mat_expr_t*);
 /** @return 関数式であるかどうか */
-bool mat_expr_is_function(const mat_expr_t* );
+bool mat_expr_is_function(const mat_expr_t*);

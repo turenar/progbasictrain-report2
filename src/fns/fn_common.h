@@ -36,7 +36,7 @@ mat_error_t mat_fn_common_apply_mpfr_bifunction(mat_world_t* w, const mat_expr_t
  * @param b aと同様である。
  * @return 生成された式。NULLは返らない。
  */
-mat_expr_t* mat_fn_common_plus(mat_expr_t* a, mat_expr_t*b);
+mat_expr_t* mat_fn_common_plus(mat_expr_t* a, mat_expr_t* b);
 /**
  * Subtract[A, B] 式を作成する。
  * @see mat_fn_common_plus
