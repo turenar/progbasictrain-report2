@@ -6,7 +6,8 @@ include_directories(src externals)
 
 add_library(matcore src/parser.c src/parser.h src/op.h src/expr.h src/config.inc.h
         src/tokenizer.c src/tokenizer.h src/error.h src/fwddecl.h src/logger.c src/logger.h src/error.c src/expr.c
-        src/op_hash.c src/op_hash.h src/world.c src/world.h src/op.c src/newton.c src/newton.h)
+        src/op_hash.c src/op_hash.h src/world.c src/world.h src/op.c src/newton.c src/newton.h
+        src/compat/gmp_wrapper.h src/compat/mpfr_wrapper.h src/compat/gmp_wrapper.c src/compat/mpfr_wrapper.c)
 add_library(matfunc src/fns/fns.h src/fns/fn_const.c src/fns/fn_variable.c
         src/fns/fn_plus.c src/fns/fn_common.c src/fns/fn_common.h src/fns/fn_times.c src/fns/fn_sin.c
         src/fns/fn_subtract.c src/fns/fn_divide.c src/fns/fn_cos.c src/fns/fn_exp.c src/fns/fn_log.c src/fns/fn_power.c)
