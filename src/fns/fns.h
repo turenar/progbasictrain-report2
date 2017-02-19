@@ -4,7 +4,13 @@
 #include "../fwddecl.h"
 #include "../op.h"
 
+/**
+ * 直接使用せず、 mat_expr_new_const(mpq_t) を使用する。
+ */
 extern const mat_op_def_t mat_fn_const;
+/**
+ * 直接使用せず、 mat_expr_new_var(mat_variable_name_t) を使用する。
+ */
 extern const mat_op_def_t mat_fn_variable;
 
 extern const mat_op_def_t mat_fn_plus;

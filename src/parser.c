@@ -170,6 +170,7 @@ static mat_expr_t* parse_var(mat_parser_t* parser) {
 }
 
 static mat_expr_t* parse_literal(mat_parser_t* parser) {
+	// 浮動小数点数をパースするためstr->mpf_t->mpq_tと一つ間をはさみます。
 	const char* buf = mat_tokenizer_get_token(parser->tokenizer);
 	mpf_t st;
 	mpf_init(st);

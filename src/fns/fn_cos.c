@@ -22,11 +22,16 @@ static mat_error_t calc_value(mat_world_t* w, const mat_expr_t* expr, mpq_t resu
 }
 
 static mat_expr_t* make_differential(mat_world_t* w, const mat_expr_t* expr) {
-	mat_expr_t* a = mat_op_make_differential(w, expr->value.expr.args[0]);
+	mat_expr_t* a = mat_op_make_differential(w, expr->value.func.args[0]);
 	mat_expr_t* minus = mat_expr_new_const_int(-1);
 	mat_expr_t* b = mat_expr_new_from(expr);
 	b->op_def = &mat_fn_sin;
-	return mat_fn_common_times(mat_fn_common_times(minus, a), b);
+	return
+			mat_fn_common_times(
+					mat_fn_common_times(
+							minus,
+							a),
+					b);
 }
 
 static mat_expr_t* simplify(mat_world_t* w, const mat_expr_t* expr) {

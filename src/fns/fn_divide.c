@@ -34,7 +34,7 @@ static mat_error_t checker(mat_world_t* w, const mpq_t a, const mpq_t b) {
 }
 
 static mat_expr_t* make_differential(mat_world_t* w, const mat_expr_t* expr) {
-	mat_expr_t** args = expr->value.expr.args;
+	mat_expr_t** args = expr->value.func.args;
 	mat_expr_t* a = args[0];
 	mat_expr_t* b = args[1];
 	return
@@ -53,7 +53,7 @@ static mat_expr_t* make_differential(mat_world_t* w, const mat_expr_t* expr) {
 }
 
 static mat_expr_t* simplify(mat_world_t* w, const mat_expr_t* expr) {
-	mat_expr_t** args = expr->value.expr.args;
+	mat_expr_t** args = expr->value.func.args;
 	return mat_fn_common_divide(
 			mat_op_simplify(w, args[0]),
 			mat_op_simplify(w, args[1]));

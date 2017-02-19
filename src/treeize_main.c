@@ -91,8 +91,12 @@ free_world:
 static void show_help(const char* program_name) {
 	const char* help = ""
 			"usage: %s [OPTIONS] EXPR\n"
+			"\n"
+			"calculate expression\n"
 			"OPTIONS:\n"
-			"  -v, --variable NAME=EXPR   declare variable\n"
+			"  -h, --help                show this help and exit\n"
+			"  -v, --variable NAME=EXPR  declare variable\n"
+			"\n"
 			"NAME must be single alphabet character.\n"
 			"EXPR must be valid syntax expression.\n";
 	fprintf(stderr, help, program_name);

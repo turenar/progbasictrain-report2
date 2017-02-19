@@ -21,14 +21,14 @@ static mat_error_t calc_value(mat_world_t* w, const mat_expr_t* expr, mpq_t resu
 }
 
 static mat_expr_t* make_differential(mat_world_t* w, const mat_expr_t* expr) {
-	mat_expr_t* arg = expr->value.expr.args[0];
+	mat_expr_t* arg = expr->value.func.args[0];
 	return mat_fn_common_times(
 			mat_op_make_differential(w, arg),
 			mat_expr_new_from(expr));
 }
 
 static mat_expr_t* simplify(mat_world_t* w, const mat_expr_t* expr) {
-	mat_expr_t* arg = mat_op_simplify(w, expr->value.expr.args[0]);
+	mat_expr_t* arg = mat_op_simplify(w, expr->value.func.args[0]);
 	if (mat_expr_is_const(arg) && mpq_sgn(arg->value.constant) == 0) {
 		mat_expr_free(arg);
 		return mat_expr_new_const_int(1);

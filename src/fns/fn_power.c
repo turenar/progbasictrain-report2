@@ -23,7 +23,7 @@ static mat_error_t calc_value(mat_world_t* w, const mat_expr_t* expr, mpq_t resu
 }
 
 static mat_expr_t* make_differential(mat_world_t* w, const mat_expr_t* expr) {
-	mat_expr_t** args = expr->value.expr.args;
+	mat_expr_t** args = expr->value.func.args;
 	mat_expr_t* x = args[0];
 	mat_expr_t* y = args[1];
 
@@ -50,11 +50,12 @@ static mat_expr_t* make_differential(mat_world_t* w, const mat_expr_t* expr) {
 }
 
 static mat_expr_t* simplify(mat_world_t* w, const mat_expr_t* expr) {
-	mat_expr_t** args = expr->value.expr.args;
+	mat_expr_t** args = expr->value.func.args;
 	mat_expr_t* a = mat_op_simplify(w, args[0]);
 	mat_expr_t* b = mat_op_simplify(w, args[1]);
 	if (mat_expr_is_const(b)) {
 		if (mat_expr_is_const(a) && (mpq_sgn(a->value.constant) != 0 || mpq_sgn(b->value.constant) != 0)) {
+			// 定数展開
 			mpfr_t afr, bfr, rfr;
 			mpf_t rf;
 			mpq_t rq;
@@ -89,12 +90,12 @@ static mat_expr_t* simplify(mat_world_t* w, const mat_expr_t* expr) {
 			return mat_expr_new_const_int(1);
 		} else if (mpq_cmp_ui(b->value.constant, 1, 1) == 0) {
 			mat_expr_free(b);
-			return a;
+			return a; // a^1 = a
 		} else if (mat_expr_is_function(a) && a->op_def == &mat_fn_power) {
 			// (x^2) ^3 -> x^6
-			mat_expr_t* ab = a->value.expr.args[1];
+			mat_expr_t* ab = a->value.func.args[1];
 			if (mat_expr_is_const(ab)) {
-				mat_expr_t* new_a = mat_expr_new_from(a->value.expr.args[0]);
+				mat_expr_t* new_a = mat_expr_new_from(a->value.func.args[0]);
 				mat_expr_t* new_b = mat_fn_common_times(b, mat_expr_new_from(ab));
 				mat_expr_free(a);
 				// b is moved in new_b assignment

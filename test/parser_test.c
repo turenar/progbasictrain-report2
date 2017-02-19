@@ -17,7 +17,7 @@ static mat_op_def_t test_op = {
 };
 
 static mat_error_t calc_value(mat_world_t* w, const mat_expr_t* expr, mpq_t r) {
-	mat_expr_t* arg = expr->value.expr.args[0];
+	mat_expr_t* arg = expr->value.func.args[0];
 	mpq_t a, b;
 	mpq_inits(a, b, NULL);
 	mat_error_t err = mat_op_calc_value(w, arg, a);

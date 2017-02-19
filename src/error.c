@@ -10,7 +10,6 @@ static const char* default_error_message[MAT_ERROR_MAX] = {
 		"success", // MAT_SUCCESS
 		"failure", // MAT_FAILURE
 		"allocation failed", // MAT_ALLOCATION_FAILURE
-		"tokenizer error", // MAT_TOKENIZER_ERROR
 		"unexpected token", // MAT_PARSER_UNEXPECTED_TOKEN
 		"unknown func", // MAT_UNKNOWN_FUNC
 		"arguments count error", // MAT_ARG_COUNT_MISMATCH

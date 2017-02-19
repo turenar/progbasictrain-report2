@@ -21,7 +21,7 @@ static mat_error_t calc_value(mat_world_t* w, const mat_expr_t* expr, mpq_t out)
 }
 
 static mat_expr_t* make_differential(mat_world_t* w, const mat_expr_t* expr) {
-	mat_expr_t** args = expr->value.expr.args;
+	mat_expr_t** args = expr->value.func.args;
 	return mat_fn_common_plus(
 			mat_fn_common_times(
 					mat_op_make_differential(w, args[0]),
@@ -32,7 +32,7 @@ static mat_expr_t* make_differential(mat_world_t* w, const mat_expr_t* expr) {
 }
 
 static mat_expr_t* simplify(mat_world_t* w, const mat_expr_t* expr) {
-	mat_expr_t** args = expr->value.expr.args;
+	mat_expr_t** args = expr->value.func.args;
 	return mat_fn_common_times(
 			mat_op_simplify(w, args[0]),
 			mat_op_simplify(w, args[1]));

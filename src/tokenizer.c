@@ -14,6 +14,18 @@ struct mat_tokenizer {
 	mat_tokenizer_token_type_t token_type;
 };
 
+const char* mat_tokenizer_name[MAT_TOKEN_TOKEN_TYPE_MAX] = {
+		"INIT",
+		"UNKNOWN",
+		"EOD",
+		"fn-name",
+		"fn-opbr",
+		"fn-argsp",
+		"fn-clbr",
+		"var",
+		"literal"
+};
+
 
 static bool is_alphabet(char);
 static bool is_numeric(char);
@@ -150,6 +162,14 @@ size_t mat_tokenizer_get_token_len(mat_tokenizer_t* tokenizer) {
 	return (size_t) (tokenizer->token_end - tokenizer->token_start);
 }
 
+const char* mat_tokenizer_get_token_type_name(mat_tokenizer_token_type_t t) {
+	if (t >= MAT_TOKEN_TOKEN_TYPE_MAX) {
+		return "<illegal>";
+	} else {
+		return mat_tokenizer_name[t];
+	}
+}
+
 
 static bool is_alphabet(char c) {
 	return ('a' <= c && c <= 'z') || ('A' <= c && c <= 'Z');
@@ -176,25 +196,4 @@ static const char* skip_space_chars(mat_tokenizer_t* tokenizer, const char* str)
 		}
 	}
 	return p;
-}
-
-
-const char* mat_tokenizer_name[MAT_TOKEN_TOKEN_TYPE_MAX] = {
-		"INIT",
-		"UNKNOWN",
-		"EOD",
-		"fn-name",
-		"fn-opbr",
-		"fn-argsp",
-		"fn-clbr",
-		"var",
-		"literal"
-};
-
-const char* mat_tokenizer_get_token_type_name(mat_tokenizer_token_type_t t) {
-	if (t >= MAT_TOKEN_TOKEN_TYPE_MAX) {
-		return "<illegal>";
-	} else {
-		return mat_tokenizer_name[t];
-	}
 }

@@ -4,7 +4,6 @@
 #include "expr.h"
 #include "parser.h"
 #include "world.h"
-#include "compat/gmp_wrapper.h"
 #include "fns/fns.h"
 
 int main(int argc, char** argv) {
@@ -13,7 +12,6 @@ int main(int argc, char** argv) {
 		return 1;
 	}
 	const char* expr = argv[1];
-//	printf("expression:\t%s\n", expr);
 
 	int exitcode;
 	mat_world_t* world = mat_world_new();
@@ -31,11 +29,13 @@ int main(int argc, char** argv) {
 	mat_expr_t* simplified;
 	differential = mat_op_make_differential(world, e);
 	if (!differential) {
+		fprintf(stderr, "error: %s\n", mat_err_get(mat_world_get_error_info(world)));
 		exitcode = 1;
 		goto free_parser;
 	}
 	simplified = mat_op_simplify(world, differential);
 	if (!simplified) {
+		fprintf(stderr, "error: %s\n", mat_err_get(mat_world_get_error_info(world)));
 		exitcode = 1;
 		goto free_diff;
 	}

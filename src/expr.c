@@ -1,6 +1,7 @@
 #include "config.inc.h"
 
 #include "expr.h"
+#include <assert.h>
 #include <stdarg.h>
 #include <stdlib.h>
 #include <string.h>
@@ -37,8 +38,8 @@ mat_expr_t* mat_expr_new_args(const mat_op_def_t* op_def, unsigned int count, ma
 	mat_expr_t** args = (mat_expr_t**) malloc(sizeof(mat_expr_t*) * count);
 	memcpy(args, args_orig, sizeof(mat_expr_t*) * count);
 	expr->op_type = MAT_OP_FUNCTION;
-	expr->value.expr.count = count;
-	expr->value.expr.args = args;
+	expr->value.func.count = count;
+	expr->value.func.args = args;
 	expr->op_def = op_def;
 	return expr;
 }
@@ -56,20 +57,21 @@ mat_expr_t* mat_expr_new_from(const mat_expr_t* orig) {
 	mat_expr_t* ret = (mat_expr_t*) malloc(sizeof(mat_expr_t));
 	ret->op_type = orig->op_type;
 	ret->op_def = orig->op_def;
-	if (orig->op_type == MAT_OP_CONSTANT) {
+	if (mat_expr_is_const(orig)) {
 		mpq_init(ret->value.constant);
 		mpq_set(ret->value.constant, orig->value.constant);
-	} else if (orig->op_type == MAT_OP_VARIABLE) {
+	} else if (mat_expr_is_variable(orig)) {
 		ret->value.var = orig->value.var;
-	} else if (orig->op_type == MAT_OP_FUNCTION) {
-		mat_op_expr_t expr = orig->value.expr;
+	} else {
+		assert(mat_expr_is_function(orig));
+		mat_op_expr_t expr = orig->value.func;
 		unsigned int count = expr.count;
 		mat_expr_t** args = (mat_expr_t**) malloc(sizeof(mat_expr_t*) * count);
 		for (unsigned int i = 0; i < count; ++i) {
 			args[i] = mat_expr_new_from(expr.args[i]);
 		}
-		ret->value.expr.count = count;
-		ret->value.expr.args = args;
+		ret->value.func.count = count;
+		ret->value.func.args = args;
 	}
 	return ret;
 }
@@ -79,11 +81,11 @@ void mat_expr_free(mat_expr_t* expr) {
 	if(!expr){
 		return;
 	}
-	if (expr->op_type == MAT_OP_CONSTANT || expr->op_type == 0) {
+	if (mat_expr_is_const(expr)) {
 		mpq_clear(expr->value.constant);
-	} else if (expr->op_type == MAT_OP_FUNCTION) {
-		struct mat_expr** args = expr->value.expr.args;
-		for (unsigned int i = 0; i < expr->value.expr.count; ++i) {
+	} else if (mat_expr_is_function(expr)) {
+		struct mat_expr** args = expr->value.func.args;
+		for (unsigned int i = 0; i < expr->value.func.count; ++i) {
 			mat_expr_free(args[i]);
 		}
 		free(args);

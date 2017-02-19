@@ -20,6 +20,7 @@ const mat_op_def_t mat_fn_const = {
 static void show_expression(mat_world_t* w, const mat_expr_t* expr) {
 	UNUSED_VAR(w);
 	double d = mpq_get_d(expr->value.constant);
+	// mpf_tにして出力でも良かったのだけど、下手に小数点以下が長くなっても困るかなあと思いまして
 	printf("%g", d);
 }
 

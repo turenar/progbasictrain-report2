@@ -12,7 +12,7 @@ void mat_fn_common_show_expression(mat_world_t* w, const mat_expr_t* expr) {
 	assert(expr->op_type == MAT_OP_FUNCTION);
 
 	printf("%s[", expr->op_def->name);
-	mat_op_expr_t op_expr = expr->value.expr;
+	mat_op_expr_t op_expr = expr->value.func;
 	for (unsigned int i = 0; i < op_expr.count; ++i) {
 		if (i != 0) {
 			printf(", ");
@@ -25,7 +25,7 @@ void mat_fn_common_show_expression(mat_world_t* w, const mat_expr_t* expr) {
 
 mat_error_t mat_fn_common_apply_bifunction(mat_world_t* w, const mat_expr_t* expr, mpq_t out,
                                            mat_bifunc_checker chk, mpq_bifunc fn) {
-	mat_expr_t** args = expr->value.expr.args;
+	mat_expr_t** args = expr->value.func.args;
 	mpq_t a;
 	mpq_t b;
 	mpq_init(a);
@@ -54,7 +54,7 @@ clean_up:
 
 mat_error_t mat_fn_common_apply_mpfr_function(mat_world_t* w, const mat_expr_t* expr, mpq_t out,
                                               mat_func_checker chk, mpfr_func fn) {
-	mat_expr_t** args = expr->value.expr.args;
+	mat_expr_t** args = expr->value.func.args;
 	mpq_t arg;
 	mpq_init(arg);
 
@@ -92,7 +92,7 @@ clean_up:
 
 mat_error_t mat_fn_common_apply_mpfr_bifunction(mat_world_t* w, const mat_expr_t* expr, mpq_t out,
                                                 mat_bifunc_checker chk, mpfr_bifunc fn) {
-	mat_expr_t** args = expr->value.expr.args;
+	mat_expr_t** args = expr->value.func.args;
 	mpq_t a_q;
 	mpq_t b_q;
 	mpq_init(a_q);
