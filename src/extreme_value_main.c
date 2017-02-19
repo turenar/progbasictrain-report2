@@ -183,7 +183,8 @@ int main(int argc, char** argv) {
 		goto free_d2f_value;
 	}
 
-	int is_extreme = is_local_extreme(world, df, extreme_x, param.epsilon);
+	int is_extreme;
+	is_extreme = is_local_extreme(world, df, extreme_x, param.epsilon);
 	if (is_extreme < 0) {
 		// error
 		exitcode = 1;
