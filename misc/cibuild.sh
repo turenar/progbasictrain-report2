@@ -110,6 +110,7 @@ cd dist || _die
 make check || _die
 
 if [ $test_failed -ne 0 ]; then
+	echo "there is failed tests!" >&2
 	exit 201
 else
 	exit 0
