@@ -79,10 +79,12 @@ test_failed=0
 #./autogen.sh -v
 test -d bin || mkdir bin
 
-# has_cmd x86_64-w64-mingw32-gcc && check_compile cibuild-mingw-x86_64 --host=x86_64-w64-mingw32
-# has_cmd i686-w64-mingw32-gcc && check_compile cibuild-mingw-i686 --host=i686-w64-mingw32
-check_compile cibuild-native
-check_compile cibuild-native+c     CC=clang
+has_cmd x86_64-w64-mingw32-gcc && check_compile cibuild-mingw-x86_64 --host=x86_64-w64-mingw32
+has_cmd i686-w64-mingw32-gcc && check_compile cibuild-mingw-i686 --host=i686-w64-mingw32
+check_compile cibuild-native       --disable-gmp
+check_compile cibuild-native+g
+check_compile cibuild-native+c     CC=clang --disable-gmp
+check_compile cibuild-native+cg    CC=clang
 check_compile cibuild-native+xx    CC=g++ CFLAGS='-std=c++11'
 
 if ${parallel_pid+:} false; then
