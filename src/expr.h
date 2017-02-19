@@ -25,7 +25,7 @@ typedef union mat_value {
 } mat_value_t;
 
 struct mat_expr {
-	mat_op_id_t op_id;
+	mat_op_id_t op_type;
 	const mat_op_def_t* op_def;
 	mat_value_t value;
 };

@@ -9,7 +9,7 @@
 #include "../world.h"
 
 void mat_fn_common_show_expression(mat_world_t* w, const mat_expr_t* expr) {
-	assert(expr->op_id >= 0);
+	assert(expr->op_type == MAT_OP_FUNCTION);
 
 	printf("%s[", expr->op_def->name);
 	mat_op_expr_t op_expr = expr->value.expr;
