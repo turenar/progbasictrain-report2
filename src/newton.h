@@ -1,8 +1,8 @@
 #pragma once
 
-#include <gmp.h>
 #include "error.h"
 #include "fwddecl.h"
+#include "compat/gmp_wrapper.h"
 
 typedef struct mat_newton_param {
 	mpq_t min;

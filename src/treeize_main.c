@@ -2,11 +2,11 @@
 
 #include <ctype.h>
 #include <getopt.h>
-#include <gmp.h>
 #include <stdio.h>
 #include "expr.h"
 #include "parser.h"
 #include "world.h"
+#include "compat/gmp_wrapper.h"
 #include "fns/fns.h"
 
 static void show_help(const char* program_name);

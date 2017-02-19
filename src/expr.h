@@ -1,8 +1,8 @@
 #pragma once
 
-#include <gmp.h>
 #include <stdbool.h>
 #include "fwddecl.h"
+#include "compat/gmp_wrapper.h"
 
 typedef enum mat_op_id {
 	MAT_OP_CONSTANT,

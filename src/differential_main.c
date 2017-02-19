@@ -1,10 +1,10 @@
 #include "config.inc.h"
 
-#include <gmp.h>
 #include <stdio.h>
 #include "expr.h"
 #include "parser.h"
 #include "world.h"
+#include "compat/gmp_wrapper.h"
 #include "fns/fns.h"
 
 int main(int argc, char** argv) {

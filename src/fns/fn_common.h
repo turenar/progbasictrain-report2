@@ -1,9 +1,10 @@
 #pragma once
 
-#include <gmp.h>
-#include <mpfr.h>
+#include <stddef.h>
 #include "../error.h"
 #include "../fwddecl.h"
+#include "compat/gmp_wrapper.h"
+#include "compat/mpfr_wrapper.h"
 
 void mat_fn_common_show_expression(mat_world_t* w, const mat_expr_t* expr);
 

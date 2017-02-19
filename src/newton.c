@@ -1,6 +1,7 @@
 #include "config.inc.h"
 
 #include "newton.h"
+#include <stddef.h>
 #include "expr.h"
 #include "logger.h"
 #include "op.h"

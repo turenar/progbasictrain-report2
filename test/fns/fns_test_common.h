@@ -1,5 +1,6 @@
 #pragma once
 
+#include <stddef.h>
 #include "fns_test.h"
 
 void test_common_arguments_bifunc(CuTest*, const mat_op_def_t* op_def);
