@@ -20,8 +20,6 @@ struct mat_op_hash {
 	mat_op_hash_node_t** bucket;
 };
 
-typedef struct mat_op_hash mat_op_hash_t;
-
 
 static size_t hash_str(const char*);
 static void expand_hash(mat_op_hash_t*, size_t bucket_size);

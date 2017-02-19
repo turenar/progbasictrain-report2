@@ -13,7 +13,7 @@ struct mat_world {
 	mat_error_info_t err;
 	mat_expr_t* var_values[UCHAR_MAX];
 };
-typedef struct mat_world mat_world_t;
+
 
 mat_world_t* mat_world_new() {
 	mat_world_t* ret = (mat_world_t*) malloc(sizeof(mat_world_t));

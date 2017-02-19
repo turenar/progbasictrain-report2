@@ -14,7 +14,6 @@ struct mat_parser {
 	mat_tokenizer_t* tokenizer;
 	mat_world_t* world;
 };
-typedef struct mat_parser mat_parser_t;
 
 static mat_expr_t* parse_expr(mat_parser_t*, mat_tokenizer_token_type_t);
 static mat_expr_t* parse_func(mat_parser_t*);

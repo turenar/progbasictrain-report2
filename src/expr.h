@@ -10,9 +10,6 @@ typedef enum mat_op_id {
 	MAT_OP_FUNCTION
 } mat_op_id_t;
 
-struct mat_expr;
-typedef struct mat_expr mat_expr_t;
-
 typedef struct mat_op_expr {
 	unsigned int count;
 	mat_expr_t** args;

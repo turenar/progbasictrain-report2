@@ -1,7 +1,9 @@
 #pragma once
 
-#include <stdbool.h>
 #include "config.inc.h"
+
+#include <stdbool.h>
+#include "fwddecl.h"
 
 typedef enum mat_error {
 	MAT_SUCCESS,
@@ -17,10 +19,10 @@ typedef enum mat_error {
 	MAT_ERROR_MAX
 } mat_error_t;
 
-typedef struct mat_error_info {
+struct mat_error_info {
 	mat_error_t error_id;
 	char* error_msg;
-} mat_error_info_t;
+};
 
 void mat_err_init(mat_error_info_t*);
 mat_error_t mat_err_set(mat_error_info_t*, mat_error_t);

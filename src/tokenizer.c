@@ -14,7 +14,6 @@ struct mat_tokenizer {
 	mat_tokenizer_token_type_t token_type;
 };
 
-typedef struct mat_tokenizer mat_tokenizer_t;
 
 static bool is_alphabet(char);
 static bool is_numeric(char);
