@@ -4,7 +4,6 @@
 #include "fns.h"
 #include "../world.h"
 
-static void show_expression(mat_world_t* w, const mat_expr_t*);
 static mat_error_t calc_value(mat_world_t* w, const mat_expr_t* expr, mpq_t out);
 static mat_error_t checker(mat_world_t* w, const mpq_t a);
 static mat_expr_t* make_differential(mat_world_t* w, const mat_expr_t*);
@@ -13,15 +12,11 @@ static mat_expr_t* simplify(mat_world_t* w, const mat_expr_t*);
 const mat_op_def_t mat_fn_log = {
 		"Log",
 		1, 1,
-		&show_expression,
+		&mat_fn_common_show_expression,
 		&calc_value,
 		&make_differential,
 		&simplify
 };
-
-static void show_expression(mat_world_t* w, const mat_expr_t* expr) {
-	mat_fn_common_show_expression(w, expr);
-}
 
 static mat_error_t calc_value(mat_world_t* w, const mat_expr_t* expr, mpq_t result) {
 	return mat_fn_common_apply_mpfr_function(w, expr, result, &checker, &mpfr_log);
