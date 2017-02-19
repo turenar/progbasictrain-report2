@@ -35,13 +35,21 @@ static mat_error_t checker(mat_world_t* w, const mpq_t a, const mpq_t b) {
 
 static mat_expr_t* make_differential(mat_world_t* w, const mat_expr_t* expr) {
 	mat_expr_t** args = expr->value.expr.args;
-	mat_expr_t* df = mat_op_make_differential(w, args[0]);
-	mat_expr_t* dg = mat_op_make_differential(w, args[1]);
-	mat_expr_t* dividend = mat_fn_common_subtract(
-			mat_fn_common_times(df, mat_expr_new_from(args[1])),
-			mat_fn_common_times(mat_expr_new_from(args[0]), dg));
-	mat_expr_t* divider = mat_fn_common_times(mat_expr_new_from(args[1]), mat_expr_new_from(args[1]));
-	return mat_fn_common_divide(dividend, divider);
+	mat_expr_t* a = args[0];
+	mat_expr_t* b = args[1];
+	return
+			mat_fn_common_divide(
+					mat_fn_common_subtract(
+							mat_fn_common_times(
+									mat_op_make_differential(w, a),
+									mat_expr_new_from(b)),
+							mat_fn_common_times(
+									mat_expr_new_from(a),
+									mat_op_make_differential(w, b))),
+					mat_expr_new_bi_args(
+							&mat_fn_power,
+							mat_expr_new_from(b),
+							mat_expr_new_const_int(2)));
 }
 
 static mat_expr_t* simplify(mat_world_t* w, const mat_expr_t* expr) {
