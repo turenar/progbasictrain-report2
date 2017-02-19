@@ -4,4 +4,12 @@
 #include "fwddecl.h"
 #include "error.h"
 
-mat_error_t mat_newton_optimize(mat_world_t*, const mat_expr_t*, const mpq_t initial, const mpq_t epsilon, mpq_t out);
+typedef struct mat_newton_param {
+	mpq_t min;
+	mpq_t max;
+	mpq_t initial;
+	mpq_t epsilon;
+	int precision;
+	int patience;
+} mat_newton_param_t;
+mat_error_t mat_newton_optimize(mat_world_t*, const mat_expr_t*, const mat_newton_param_t*, mpq_t out);
