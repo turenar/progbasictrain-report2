@@ -307,7 +307,6 @@ int is_local_extreme(mat_world_t* w, const mat_expr_t* df, const mpq_t x, const 
 	}
 	mpq_mul(multiplied, df_a, df_b);
 
-	gmp_printf("%Qd %Qd\n", df_a, df_b);
 	ret = mpq_sgn(multiplied) < 0;
 	goto free_mpq;
 error:
